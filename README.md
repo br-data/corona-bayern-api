@@ -1,0 +1,1 @@
+# Corona Bayern Scraper
