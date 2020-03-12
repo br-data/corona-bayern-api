@@ -1,0 +1,20 @@
+{
+  "name": "corona-bayern-scraper",
+  "version": "0.0.1",
+  "license": "MIT",
+  "author": "Steffen Kühne",
+  "description": "Scrape table of Bavarian Corona cases from LGL website",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:br-data/corona-bayern-scraper.git"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/bigquery": "^4.7.0",
+    "html-table-to-json": "^1.0.0",
+    "jsdom": "^16.2.1",
+    "jsonschema": "^1.2.5",
+    "node-fetch": "^2.6.0",
+    "npm-check-updates": "^4.0.4"
+  }
+}
