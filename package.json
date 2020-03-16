@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "license": "MIT",
   "author": "Steffen Kühne",
-  "description": "Scrape table of Bavarian Corona cases from LGL website",
+  "description": "Scrape list of Bavarian Corona cases from LGL website",
   "repository": {
     "type": "git",
     "url": "git@github.com:br-data/corona-bayern-scraper.git"
   },
   "main": "index.js",
   "dependencies": {
-    "@google-cloud/bigquery": "^4.7.0",
+    "@google-cloud/firestore": "^3.7.0",
     "cheerio": "^1.0.0-rc.3",
     "node-fetch": "^2.6.0"
   },
