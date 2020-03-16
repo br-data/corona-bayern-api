@@ -26,24 +26,25 @@ async function getBody(url) {
 async function getTableData(html) {
   const $ = cheerio.load(await html);
   const tableHtml = $('table').parent().html();
-  const json = tableToJSON(tableHtml);
-
+  const json = tableToJSON(tableHtml, ['Name', 'Anzahl']);
+  
   return json;
 }
 
-async function tableToJSON(html) {
+async function tableToJSON(html, customHeader) {
   const $ = cheerio.load(await html);
   const table = $('table');
-  let headers = [];
+  let headers = customHeader || [];
   let results = [];
   
   // Build headers
   $(table).find('tr').each((i, row) => {
     $(row).find('th').each((j, cell) => {
-      headers[j] = $(cell).text().trim();
+      headers[j] = headers[j] || $(cell).text().trim();
     });
   });
 
+  // Process table
   $(table).find('tr').first().find('td').each((j, cell) => {
     headers[j] = $(cell).text().trim();
   });
