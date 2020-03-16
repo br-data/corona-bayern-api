@@ -1,8 +1,9 @@
 {
   "url": "https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm",
-  "projectId": "corona-bayern",
-  "bigQuery": {
-    "datasetId": "corona_bayern",
-    "tableId": "dates"
+  "firestore": {
+    "projectId": "brdata-corona",
+    "collectionId": "bayern-lgl",
+    "timestampsInSnapshots": true,
+    "keyFilename": "./key.json"
   }
 }
