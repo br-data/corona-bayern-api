@@ -1,14 +1,15 @@
-const toDashcase = require('./to-dashcase');
-const Firestore = require('@google-cloud/firestore');
-
 const config = require('./config.json');
 const data = require('./data/landkreise.json');
 
-const firestore = new Firestore(config.firestore);
+const toDashcase = require('./to-dashcase');
+const Firestore = require('@google-cloud/firestore');
+
+const db = new Firestore(config.firestore);
 
 (async function importData() {
-  const collection = firestore.collection(config.firestore.collectionId);
-  let writeBatch = firestore.batch();
+  const collection = db.collection(config.firestore.collectionId);
+  let writeBatch = db.batch();
+
   data.forEach(d => {
     const doc = collection.doc(toDashcase(d['name-lgl']));
     d.cases = [];
