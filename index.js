@@ -1,21 +1,22 @@
 const config = require('./config.json');
 
+const toDashcase = require('./to-dashcase');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-// const { BigQuery } = require('@google-cloud/bigquery');
+const { Firestore, FieldValue } = require('@google-cloud/firestore');
 
-// const bigquery = new BigQuery({
-//   projectId: config.projectId
-// });
+const db = new Firestore(config.firestore);
 
-const html = getBody(config.url).catch(console.error);
-const data = getTableData(html).catch(console.error);
-console.log(data.then(console.log));
+// exports.init = async () => {
+(async function init() {
+  const date = new Date();
 
-// console.log(`Creating table ${config.bigQuery.tableId} in dataset ${config.bigQuery.datasetId}`);
+  const html = await getBody(config.url).catch(console.error);
+  const data = await getTableData(html).catch(console.error);
+  const update = await updateDatabase(data, date).catch(console.error);
 
-// await createBigQueryDataset();
-// await createBigQueryTable();
+  console.log(`Updated ${update.length} documents`);
+})();
 
 async function getBody(url) {
   return fetch(url)
@@ -24,15 +25,16 @@ async function getBody(url) {
 }
 
 async function getTableData(html) {
-  const $ = cheerio.load(await html);
+  const $ = cheerio.load(html);
   const tableHtml = $('table').parent().html();
-  const json = tableToJSON(tableHtml, ['Name', 'Anzahl']);
-  
-  return json;
+  const json = await tableToJSON(tableHtml, ['name-lgl', 'count']);
+  const cleanJson = json.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
+
+  return cleanJson;
 }
 
 async function tableToJSON(html, customHeader) {
-  const $ = cheerio.load(await html);
+  const $ = cheerio.load(html);
   const table = $('table');
   let headers = customHeader || [];
   let results = [];
@@ -61,4 +63,21 @@ async function tableToJSON(html, customHeader) {
   results = results.filter(t => Object.keys(t).length);
   
   return results;
+}
+
+async function updateDatabase(data, date) {
+  const collection = db.collection(config.firestore.collectionId);
+  let writeBatch = db.batch();
+
+  data.forEach(d => {
+    const doc = collection.doc(toDashcase(d['name-lgl']));
+    d.cases = [];
+    writeBatch.update(
+      doc,
+      'cases',
+      FieldValue.arrayUnion({ count: d.count, date })
+    );
+  });
+
+  return writeBatch.commit();
 }
