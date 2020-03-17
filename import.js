@@ -12,7 +12,6 @@ const db = new Firestore(config.firestore);
 
   data.forEach(d => {
     const doc = collection.doc(toDashcase(d['name-lgl']));
-    d.cases = [];
     writeBatch.set(doc, d);
   });
 

@@ -3,13 +3,14 @@ const config = require('./config.json');
 const toDashcase = require('./to-dashcase');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
-const { Firestore, FieldValue } = require('@google-cloud/firestore');
+const Firestore = require('@google-cloud/firestore');
 
 const db = new Firestore(config.firestore);
 
 // exports.init = async () => {
 (async function init() {
-  const date = new Date();
+  // YYYY-MM-DD
+  const date = new Date().toISOString().split('T')[0];
 
   const html = await getBody(config.url).catch(console.error);
   const data = await getTableData(html).catch(console.error);
@@ -71,11 +72,10 @@ async function updateDatabase(data, date) {
 
   data.forEach(d => {
     const doc = collection.doc(toDashcase(d['name-lgl']));
-    d.cases = [];
-    writeBatch.update(
+    writeBatch.set(
       doc,
-      'cases',
-      FieldValue.arrayUnion({ count: d.count, date })
+      { cases: { [date]: parseInt(d.count) }},
+      { merge: true }
     );
   });
 
