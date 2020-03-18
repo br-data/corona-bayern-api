@@ -1,10 +1,11 @@
-const config = require('./config.json');
-
-const toDashcase = require('./to-dashcase');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const Firestore = require('@google-cloud/firestore');
 
+const toDashcase = require('./lib/to-dashcase');
+const tableToJson = require('./lib/table-to-json');
+
+const config = require('./config.json');
 const db = new Firestore(config.firestore);
 
 // exports.init = async () => {
@@ -27,43 +28,11 @@ async function getBody(url) {
 
 async function getTableData(html) {
   const $ = cheerio.load(html);
-  const tableHtml = $('table').parent().html();
-  const json = await tableToJSON(tableHtml, ['name-lgl', 'count']);
+  const tableHtml = $('div.col.col-md-5.offset-md-3').html();
+  const json = tableToJson(tableHtml, ['name-lgl', 'count']);
   const cleanJson = json.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
 
   return cleanJson;
-}
-
-async function tableToJSON(html, customHeader) {
-  const $ = cheerio.load(html);
-  const table = $('table');
-  let headers = customHeader || [];
-  let results = [];
-  
-  // Build headers
-  $(table).find('tr').each((i, row) => {
-    $(row).find('th').each((j, cell) => {
-      headers[j] = headers[j] || $(cell).text().trim();
-    });
-  });
-
-  // Process table
-  $(table).find('tr').first().find('td').each((j, cell) => {
-    headers[j] = $(cell).text().trim();
-  });
-
-  // Find rows
-  $(table).find('tr').each((index, row) => {
-    results[index] = {};
-    $(row).find('td').each((i, cell) => {
-      results[index][headers[i] || (i + 1)] = $(cell).text().trim();
-    });
-  });
-
-  // Remove empty rows
-  results = results.filter(t => Object.keys(t).length);
-  
-  return results;
 }
 
 async function updateDatabase(data, date) {
