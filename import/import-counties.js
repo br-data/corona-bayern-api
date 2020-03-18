@@ -1,12 +1,11 @@
-const config = require('./config.json');
-const data = require('./data/landkreise.json');
-
-const toDashcase = require('./to-dashcase');
+const toDashcase = require('../lib/to-dashcase');
 const Firestore = require('@google-cloud/firestore');
 
+const data = require('./data/landkreise.json');
+const config = require('../config.json');
 const db = new Firestore(config.firestore);
 
-(async function importData() {
+(async function importCounties() {
   const collection = db.collection(config.firestore.collectionId);
   let writeBatch = db.batch();
 
