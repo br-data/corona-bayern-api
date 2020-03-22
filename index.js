@@ -55,16 +55,21 @@ exports.api = async (req, res) => {
 
   switch (firstPath) {
     case 'date': handleDate(req, res); break;
+    case 'county': handleCounty(req, res); break;
     default: handleDefault(req, res);
   }
 };
 
 async function handleDate(req, res) {
   const dateArgument = req.url.split('/')[2];
-  const isDate = Date.parse(dateArgument);
-  const date = isDate ? new Date(dateArgument) : new Date();
-  const dateString = date.toISOString().split('T')[0];
-  const data = await queryDatabase(undefined, dateString);
+
+  const hasDateArgument = Date.parse(dateArgument);
+  const dateObject = hasDateArgument ? new Date(dateArgument) : new Date();
+  const dateString = dateObject.toISOString().split('T')[0];
+
+  const fieldPath = new FieldPath('cases', dateString);
+  const snapshot = await collection.where(fieldPath, '>', 0).get();
+  const data = snapshot.docs.map(doc => doc.data());
   
   if (data && data.length) {
     const reponse = data.map(d => {
@@ -80,18 +85,27 @@ async function handleDate(req, res) {
   }
 }
 
+async function handleCounty(req, res) {
+  const countyArgument = req.url.split('/')[2];
+
+  if (countyArgument && countyArgument.length) {
+    const countyId = countyArgument.toString();
+    const snapshot = await collection.doc(countyId).get();
+    const data = snapshot.data() ? [snapshot.data()] : [];
+    
+    if (data && data.length) {
+      res.json([data]);
+    } else {
+      res.json([]);
+    }
+  } else {
+    handleDefault(req, res);
+  }
+}
+
 async function handleDefault(req, res) {
   const snapshot = await collection.get();
   const data = snapshot.docs.map(doc => doc.data());
 
   res.json(data);
-}
-
-async function queryDatabase(countyId, dateString) {
-  const fieldPath = new FieldPath('cases', dateString);
-
-  const snapshot = await collection.where(fieldPath, '>', 0).get();
-  const data = snapshot.docs.map(doc => doc.data());
-
-  return data;
 }
