@@ -60,36 +60,23 @@ exports.api = async (req, res) => {
 };
 
 async function handleDate(req, res) {
-  const secondPath = req.url.split('/')[2];
-  let data, date;
+  const dateArgument = req.url.split('/')[2];
+  const isDate = Date.parse(dateArgument);
+  const date = isDate ? new Date(dateArgument) : new Date();
+  const dateString = date.toISOString().split('T')[0];
+  const data = await queryDatabase(undefined, dateString);
   
-  if (secondPath) {
-    console.log('/date/[date]');
-    if (Date.parse(secondPath)) {
-      date = new Date(secondPath).toISOString().split('T')[0];
-      data = await queryDatabase(undefined, date);
-    } else {
-      res.status(400);
-      res.end();
-    }
-  } else {
-    console.log('/date');
-    date = new Date().toISOString().split('T')[0];
-    data = await queryDatabase(undefined, date);
-  }
-
   if (data && data.length) {
-    data = data.map(d => {
-      d.date = date;
-      d.count = d.cases[date];
+    const reponse = data.map(d => {
+      d.count = d.cases[dateString];
+      d.date = dateString;
       delete d['cases'];
       return d;
     });
 
-    res.json(data);
+    res.json(reponse);
   } else {
-    res.status(404);
-    res.end();
+    res.json([]);
   }
 }
 
@@ -100,8 +87,8 @@ async function handleDefault(req, res) {
   res.json(data);
 }
 
-async function queryDatabase(id, date) {
-  const fieldPath = new FieldPath('cases', date);
+async function queryDatabase(countyId, dateString) {
+  const fieldPath = new FieldPath('cases', dateString);
 
   const snapshot = await collection.where(fieldPath, '>', 0).get();
   const data = snapshot.docs.map(doc => doc.data());
