@@ -1,0 +1,382 @@
+[
+  {
+    "name-lgl": "Aichach-Friedberg",
+    "count": 18
+  },
+  {
+    "name-lgl": "Altötting",
+    "count": 13
+  },
+  {
+    "name-lgl": "Amberg Stadt",
+    "count": 2
+  },
+  {
+    "name-lgl": "Amberg-Sulzbach",
+    "count": 18
+  },
+  {
+    "name-lgl": "Ansbach",
+    "count": 9
+  },
+  {
+    "name-lgl": "Ansbach Stadt",
+    "count": 3
+  },
+  {
+    "name-lgl": "Aschaffenburg",
+    "count": 31
+  },
+  {
+    "name-lgl": "Aschaffenburg Stadt",
+    "count": 20
+  },
+  {
+    "name-lgl": "Augsburg",
+    "count": 54
+  },
+  {
+    "name-lgl": "Augsburg Stadt",
+    "count": 37
+  },
+  {
+    "name-lgl": "Bad Kissingen",
+    "count": 9
+  },
+  {
+    "name-lgl": "Bad Tölz",
+    "count": 31
+  },
+  {
+    "name-lgl": "Bamberg",
+    "count": 38
+  },
+  {
+    "name-lgl": "Bamberg Stadt",
+    "count": 22
+  },
+  {
+    "name-lgl": "Bayreuth",
+    "count": 13
+  },
+  {
+    "name-lgl": "Bayreuth Stadt",
+    "count": 2
+  },
+  {
+    "name-lgl": "Berchtesgadener Land",
+    "count": 8
+  },
+  {
+    "name-lgl": "Cham",
+    "count": 40
+  },
+  {
+    "name-lgl": "Coburg",
+    "count": 17
+  },
+  {
+    "name-lgl": "Dachau",
+    "count": 45
+  },
+  {
+    "name-lgl": "Deggendorf",
+    "count": 35
+  },
+  {
+    "name-lgl": "Dillingen a.d. Donau",
+    "count": 6
+  },
+  {
+    "name-lgl": "Dingolfing-Landau",
+    "count": 22
+  },
+  {
+    "name-lgl": "Donau-Ries",
+    "count": 11
+  },
+  {
+    "name-lgl": "Ebersberg",
+    "count": 42
+  },
+  {
+    "name-lgl": "Eichstätt",
+    "count": 13
+  },
+  {
+    "name-lgl": "Erding",
+    "count": 53
+  },
+  {
+    "name-lgl": "Erlangen Stadt",
+    "count": 15
+  },
+  {
+    "name-lgl": "Erlangen-Höchstadt",
+    "count": 18
+  },
+  {
+    "name-lgl": "Forchheim",
+    "count": 18
+  },
+  {
+    "name-lgl": "Freising",
+    "count": 164
+  },
+  {
+    "name-lgl": "Freyung-Grafenau",
+    "count": 8
+  },
+  {
+    "name-lgl": "Fürstenfeldbruck",
+    "count": 36
+  },
+  {
+    "name-lgl": "Fürth",
+    "count": 7
+  },
+  {
+    "name-lgl": "Fürth Stadt",
+    "count": 16
+  },
+  {
+    "name-lgl": "Garmisch-Partenkirchen",
+    "count": 27
+  },
+  {
+    "name-lgl": "Günzburg",
+    "count": 25
+  },
+  {
+    "name-lgl": "Haßberge",
+    "count": 14
+  },
+  {
+    "name-lgl": "Hof",
+    "count": 19
+  },
+  {
+    "name-lgl": "Hof Stadt",
+    "count": 8
+  },
+  {
+    "name-lgl": "Ingolstadt Stadt",
+    "count": 4
+  },
+  {
+    "name-lgl": "Kaufbeuren Stadt",
+    "count": 5
+  },
+  {
+    "name-lgl": "Kelheim",
+    "count": 16
+  },
+  {
+    "name-lgl": "Kitzingen",
+    "count": 11
+  },
+  {
+    "name-lgl": "Kronach",
+    "count": 4
+  },
+  {
+    "name-lgl": "Kulmbach",
+    "count": 12
+  },
+  {
+    "name-lgl": "Landsberg am Lech",
+    "count": 18
+  },
+  {
+    "name-lgl": "Landshut",
+    "count": 57
+  },
+  {
+    "name-lgl": "Landshut Stadt",
+    "count": 24
+  },
+  {
+    "name-lgl": "Lichtenfels",
+    "count": 7
+  },
+  {
+    "name-lgl": "Lindau (Bodensee)",
+    "count": 35
+  },
+  {
+    "name-lgl": "Main-Spessart",
+    "count": 12
+  },
+  {
+    "name-lgl": "Memmingen Stadt",
+    "count": 9
+  },
+  {
+    "name-lgl": "Miesbach",
+    "count": 58
+  },
+  {
+    "name-lgl": "Miltenberg",
+    "count": 19
+  },
+  {
+    "name-lgl": "Mühldorf a.Inn",
+    "count": 16
+  },
+  {
+    "name-lgl": "München",
+    "count": 187
+  },
+  {
+    "name-lgl": "München Stadt",
+    "count": 591
+  },
+  {
+    "name-lgl": "Neu-Ulm",
+    "count": 29
+  },
+  {
+    "name-lgl": "Neuburg-Schrobenhausen",
+    "count": 7
+  },
+  {
+    "name-lgl": "Neumarkt i.d.Opf.",
+    "count": 18
+  },
+  {
+    "name-lgl": "Neustadt a.d. Aisch-Bad Windsheim",
+    "count": 7
+  },
+  {
+    "name-lgl": "Neustadt a.d. Waldnaab",
+    "count": 3
+  },
+  {
+    "name-lgl": "Nürnberg Stadt",
+    "count": 63
+  },
+  {
+    "name-lgl": "Nürnberger Land",
+    "count": 24
+  },
+  {
+    "name-lgl": "Oberallgäu",
+    "count": 47
+  },
+  {
+    "name-lgl": "Ostallgäu",
+    "count": 22
+  },
+  {
+    "name-lgl": "Passau",
+    "count": 23
+  },
+  {
+    "name-lgl": "Passau Stadt",
+    "count": 6
+  },
+  {
+    "name-lgl": "Pfaffenhofen a.d.Ilm",
+    "count": 19
+  },
+  {
+    "name-lgl": "Regen",
+    "count": 23
+  },
+  {
+    "name-lgl": "Regensburg",
+    "count": 54
+  },
+  {
+    "name-lgl": "Regensburg Stadt",
+    "count": 64
+  },
+  {
+    "name-lgl": "Rhön-Grabfeld",
+    "count": 8
+  },
+  {
+    "name-lgl": "Rosenheim",
+    "count": 66
+  },
+  {
+    "name-lgl": "Rosenheim Stadt",
+    "count": 1
+  },
+  {
+    "name-lgl": "Roth",
+    "count": 12
+  },
+  {
+    "name-lgl": "Rottal-Inn",
+    "count": 51
+  },
+  {
+    "name-lgl": "Schwabach Stadt",
+    "count": 8
+  },
+  {
+    "name-lgl": "Schwandorf",
+    "count": 23
+  },
+  {
+    "name-lgl": "Schweinfurt",
+    "count": 16
+  },
+  {
+    "name-lgl": "Schweinfurt Stadt",
+    "count": 4
+  },
+  {
+    "name-lgl": "Starnberg",
+    "count": 69
+  },
+  {
+    "name-lgl": "Straubing Stadt",
+    "count": 19
+  },
+  {
+    "name-lgl": "Straubing-Bogen",
+    "count": 20
+  },
+  {
+    "name-lgl": "Tirschenreuth",
+    "count": 60
+  },
+  {
+    "name-lgl": "Traunstein",
+    "count": 34
+  },
+  {
+    "name-lgl": "Unterallgäu",
+    "count": 27
+  },
+  {
+    "name-lgl": "Weiden Stadt",
+    "count": 7
+  },
+  {
+    "name-lgl": "Weilheim-Schongau",
+    "count": 48
+  },
+  {
+    "name-lgl": "Weißenburg-Gunzenhausen",
+    "count": 8
+  },
+  {
+    "name-lgl": "Wunsiedel i.Fichtelgebirge",
+    "count": 16
+  },
+  {
+    "name-lgl": "Würzburg",
+    "count": 74
+  },
+  {
+    "name-lgl": "Würzburg Stadt",
+    "count": 55
+  },
+  {
+    "name-lgl": "Gesamtergebnis",
+    "count": 3107
+  }
+]
