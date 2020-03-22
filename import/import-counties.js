@@ -1,9 +1,12 @@
 const toDashcase = require('../lib/to-dashcase');
 const Firestore = require('@google-cloud/firestore');
 
-const data = require('./data/landkreise.json');
+const data = require('./data/counties.json');
 const config = require('../config.json');
-const db = new Firestore(config.firestore);
+const db = new Firestore(Object.assign(
+  config.firestore,
+  { keyFilename: '../key.json' }
+));
 
 (async function importCounties() {
   const collection = db.collection(config.firestore.collectionId);

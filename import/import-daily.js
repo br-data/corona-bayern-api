@@ -2,13 +2,15 @@ const toDashcase = require('../lib/to-dashcase');
 const Firestore = require('@google-cloud/firestore');
 
 const config = require('../config.json');
-const db = new Firestore(config.firestore);
+const db = new Firestore(Object.assign(
+  config.firestore,
+  { keyFilename: '../key.json' }
+));
 
-// exports.init = async () => {
 (async function importData() {
   // YYYY-MM-DD
-  const date = new Date('2020-03-17').toISOString().split('T')[0];
-  const data = require(`./data/old/${date}.json`);
+  const date = new Date('2020-03-22').toISOString().split('T')[0];
+  const data = require(`./data/daily/${date}.json`);
   const update = await updateDatabase(data, date).catch(console.error);
 
   console.log(`Updated ${update.length} documents`);
