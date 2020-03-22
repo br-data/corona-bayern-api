@@ -9,7 +9,7 @@ const config = require('./config.json');
 const db = new Firestore(config.firestore);
 const collection = db.collection(config.firestore.collectionId);
 
-exports.scrape = async () => {
+exports.scraper = async () => {
   // YYYY-MM-DD
   const date = new Date().toISOString().split('T')[0];
 
@@ -36,13 +36,17 @@ async function scrapeData(html) {
 }
 
 async function updateDatabase(data, date) {
+  const lastUpdated = new Date();
   let writeBatch = db.batch();
 
   data.forEach(d => {
     const doc = collection.doc(toDashcase(d['name-lgl']));
     writeBatch.set(
       doc,
-      { cases: { [date]: parseInt(d.count) }},
+      {
+        'last-updated': lastUpdated,
+        'cases': { [date]: parseInt(d.count) }
+      },
       { merge: true }
     );
   });
