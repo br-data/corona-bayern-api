@@ -46,6 +46,7 @@ async function updateDatabase(data, date) {
       doc,
       {
         'last-updated': lastUpdated,
+        'last-count': parseInt(d.count),
         'cases': { [date]: parseInt(d.count) }
       },
       { merge: true }
@@ -72,9 +73,11 @@ async function handleDate(req, res) {
   const dateString = dateObject.toISOString().split('T')[0];
 
   const fieldPath = new FieldPath('cases', dateString);
-  const snapshot = await collection.where(fieldPath, '>', 0).get();
-  const json = snapshot.docs.map(doc => doc.data());
-  const flatJson = (json && json.length) ? toFlat(json, dateString) : [];
+  const snapshot = await collection
+    .where(fieldPath, '>', 0)
+    .withConverter(flatConverter(dateString))
+    .get();
+  const json = snapshot.docs.map(doc => doc.data()) || [];
 
   handleResponse(req, res, flatJson);
 }
@@ -84,7 +87,10 @@ async function handleCounty(req, res) {
 
   if (countyArgument && countyArgument.length) {
     const countyId = countyArgument.toString();
-    const snapshot = await collection.doc(countyId).get();
+    const snapshot = await collection
+    .doc(countyId)
+    .withConverter(dateConverter())
+    .get();
     const json = snapshot.data() ? [snapshot.data()] : [];
     
     handleResponse(req, res, json);
@@ -94,7 +100,10 @@ async function handleCounty(req, res) {
 }
 
 async function handleDefault(req, res) {
-  const snapshot = await collection.get();
+  const snapshot = await collection
+    .where('last-updated', '>', new Date(0))
+    .withConverter(dateConverter())
+    .get();
   const json = snapshot.docs.map(doc => doc.data());
 
   handleResponse(req, res, json);
@@ -109,20 +118,34 @@ function handleResponse(req, res, json) {
   res.send(response);
 }
 
-function toFlat(data, dateString) {
-  return data.map(d => {
-    d.count = d.cases[dateString];
-    d.date = dateString;
-    d['last-updated'] = toDateString(d['last-updated']);
-    delete d['cases'];
-    return d;
-  });
+function flatConverter(dateString) {
+  return {
+    fromFirestore: function (data) {
+      const newData = Object.assign(data, {
+        count: data.cases[dateString],
+        date: dateString,
+        'last-updated': toDateString(data['last-updated'])
+      });
+
+      const { cases, ...result } = newData;
+      return result;
+    }
+  };
 }
 
-function toDateString(obj) {
-  const seconds = obj._seconds;
-  const nanoseconds = obj._nanoseconds;
-  const timestamp = new Timestamp(seconds, nanoseconds);
+function dateConverter() {
+  return {
+    fromFirestore: function (data) {
+      return Object.assign(data, {
+        'last-updated': toDateString(data['last-updated'])
+      });
+    }
+  };
+}
+
+function toDateString(obj) {  
+  const {_seconds, _nanoseconds} = obj;
+  const timestamp = new Timestamp(_seconds, _nanoseconds);
   const dateString = timestamp.toDate().toISOString();
 
   return dateString;
