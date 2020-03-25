@@ -1,4 +1,4 @@
-# Corona Bayern start-scraper
+# Corona in Bayern (Scraper/API)
 
 Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 infiziert haben, ist ein wichtiger Indikator für die Ausbreitung der Krankheit COVID-19. Die ungefähre Zahl der infizierten Menschen lässt sich jedoch nur mit Tests bestimmen. Da es sich um eine meldepflichtige Krankheit meldet, müssen positive Testergebnisse an die örtlichen Gesundheitsämter gemeldet werden, welche die Zahl der infizierten Personen an das jeweilige Landesamt weitermelden. Das Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit, kurz LGL, veröffentlicht jeden Tag die aktuellen Fallzahlen für Bayern.
 
@@ -6,9 +6,9 @@ Dieses Skript schreibt in regelmäßigen Abständen die aktuellen Zahlen von der
 
 ## Daten
 
-Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des *Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit*: <https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm>
+Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des **Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit**: <https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm>
 
-Die absoluten Fallzahlen werden aus der **Tabelle 03: Coronavirusinfektionen** bezogen. Das LGL aktualisiert diese Zahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
+Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen. Das LGL aktualisiert diese Zahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
 
 ## API
 
@@ -23,6 +23,10 @@ Die absoluten Fallzahlen werden aus der **Tabelle 03: Coronavirusinfektionen** b
 #### Parameter
 
 - `?filetype=csv`: Daten als CSV-Tabelle zurückgeben
+
+#### Daten
+
+#### IDs
 
 ## Verwendung
 
@@ -77,6 +81,8 @@ Nachdem du die Datenbank, Sammlung und das Dienstkontoschlüssel erstellt hast, 
 }
 ```
 
+### Daten importieren
+
 ### Lokale Entwicklungsumgebung
 
 ```console
@@ -121,3 +127,5 @@ $ gcloud functions deploy api --runtime nodejs10 --trigger-http GET --allow-unau
 - Daten den gestrigen Tags zurückgeben, falls keine Daten für den heutige Tag verfügbar sind,
 - Amtliche Gemeindeschlüssel (AGS) für Landkreise und kreisfreie Städte hinzufügen
 - Dokumenten-ID den Landkreise und kreisfreie Städte hinzufügen ({id: amberg-sulzbach})
+- Scraper und API auf zwei Dateien aufteilen, wenn GCloud das erlaubt
+- Dynamischer Import (oder `require()`) von Modulen
