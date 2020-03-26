@@ -11,16 +11,15 @@ const db = new Firestore(config.firestore);
 const collection = db.collection(config.firestore.collectionId);
 
 exports.scraper = async (req, res) => {
-  // YYYY-MM-DD
-  const date = new Date().toISOString().split('T')[0];
-
   const html = await scrapeBody(config.url).catch(console.error);
   const data = await scrapeData(html).catch(console.error);
-  const update = await updateDatabase(data, date).catch(console.error);
+  const date = data.date || new Date().toISOString().split('T')[0];
 
-  // Only for requests triggerd by HTTP
-  if (req && res) {
-    res.send(`Updated ${update.length} documents`);
+  if (data.result) {
+    const update = await updateDatabase(data.result, date).catch(console.error);
+    res.send(`Update successfull: ${update.length} documents updated`);
+  } else {
+    res.send('Update failed: Could not extract data from external site');
   }
 };
 
@@ -32,11 +31,19 @@ async function scrapeBody(url) {
 
 async function scrapeData(html) {
   const $ = cheerio.load(html);
-  const tableHtml = $('div.col.col-md-5.offset-md-3').html();
-  const json = tableToJson(tableHtml, ['name-lgl', 'count']);
-  const cleanJson = json.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
 
-  return cleanJson;
+  const tableHtml = $('div.col.col-md-5.offset-md-3').html();
+  const tableJson = tableToJson(tableHtml, ['name-lgl', 'count']);
+  const cleanJson = tableJson.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
+
+  const dateText = $('div.col.col-md-5.offset-md-3 table caption').text();
+  const dateMatch = dateText.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
+  const dateString = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : undefined;
+
+  return {
+    result: cleanJson,
+    date: dateString
+  };
 }
 
 async function updateDatabase(data, date) {
@@ -80,9 +87,9 @@ async function handleDate(req, res) {
     .where(fieldPath, '>', 0)
     .withConverter(flatConverter(dateString))
     .get();
-  const json = snapshot.docs.map(doc => doc.data()) || [];
+  const result = snapshot.docs.map(doc => doc.data()) || [];
 
-  handleResponse(req, res, json);
+  handleResponse(req, res, result);
 }
 
 async function handleCounty(req, res) {
@@ -94,9 +101,9 @@ async function handleCounty(req, res) {
       .doc(countyId)
       .withConverter(dateConverter())
       .get();
-    const json = snapshot.data() ? [snapshot.data()] : [];
+    const result = snapshot.data() ? [snapshot.data()] : [];
     
-    handleResponse(req, res, json);
+    handleResponse(req, res, result);
   } else {
     handleDefault(req, res);
   }
@@ -107,15 +114,15 @@ async function handleDefault(req, res) {
     .where('last-updated', '>', new Date(0))
     .withConverter(dateConverter())
     .get();
-  const json = snapshot.docs.map(doc => doc.data());
+  const result = snapshot.docs.map(doc => doc.data());
 
-  handleResponse(req, res, json);
+  handleResponse(req, res, result);
 }
 
-function handleResponse(req, res, json) {
+function handleResponse(req, res, result) {
   const isCsv = req.query.filetype === 'csv';
   const contentType = isCsv ? 'text/csv' : 'application/json';
-  const response = isCsv ? jsonToCsv(json) : json;
+  const response = isCsv ? jsonToCsv(result) : result;
 
   res.set(contentType);
   res.send(response);
