@@ -10,7 +10,7 @@ const config = require('./config.json');
 const db = new Firestore(config.firestore);
 const collection = db.collection(config.firestore.collectionId);
 
-exports.scraper = async (req, res) => {
+exports.lglScraper = async (req, res) => {
   const html = await scrapeBody(config.url).catch(console.error);
   const data = await scrapeData(html).catch(console.error);
   const date = data.date || new Date().toISOString().split('T')[0];
@@ -66,7 +66,7 @@ async function updateDatabase(data, date) {
   return writeBatch.commit();
 }
 
-exports.api = async (req, res) => {
+exports.lglApi = async (req, res) => {
   const firstPath = req.path.split('/')[1];
 
   switch (firstPath) {
