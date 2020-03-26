@@ -10,7 +10,7 @@ const config = require('./config.json');
 const db = new Firestore(config.firestore);
 const collection = db.collection(config.firestore.collectionId);
 
-exports.scraper = async () => {
+exports.scraper = async (req, res) => {
   // YYYY-MM-DD
   const date = new Date().toISOString().split('T')[0];
 
@@ -18,7 +18,10 @@ exports.scraper = async () => {
   const data = await scrapeData(html).catch(console.error);
   const update = await updateDatabase(data, date).catch(console.error);
 
-  console.log(`Updated ${update.length} documents`);
+  // Only for requests triggerd by HTTP
+  if (req && res) {
+    res.send(`Updated ${update.length} documents`);
+  }
 };
 
 async function scrapeBody(url) {
@@ -79,7 +82,7 @@ async function handleDate(req, res) {
     .get();
   const json = snapshot.docs.map(doc => doc.data()) || [];
 
-  handleResponse(req, res, flatJson);
+  handleResponse(req, res, json);
 }
 
 async function handleCounty(req, res) {
@@ -88,9 +91,9 @@ async function handleCounty(req, res) {
   if (countyArgument && countyArgument.length) {
     const countyId = countyArgument.toString();
     const snapshot = await collection
-    .doc(countyId)
-    .withConverter(dateConverter())
-    .get();
+      .doc(countyId)
+      .withConverter(dateConverter())
+      .get();
     const json = snapshot.data() ? [snapshot.data()] : [];
     
     handleResponse(req, res, json);
@@ -121,12 +124,15 @@ function handleResponse(req, res, json) {
 function flatConverter(dateString) {
   return {
     fromFirestore: function (data) {
+      const countPerThousand = (data.cases[dateString] * 1000) / data.pop;
       const newData = Object.assign(data, {
-        count: data.cases[dateString],
         date: dateString,
+        count: data.cases[dateString],
+        'count-per-tsd': Math.round(countPerThousand * 100) / 100,
         'last-updated': toDateString(data['last-updated'])
       });
 
+      /*eslint no-unused-vars: 0*/
       const { cases, ...result } = newData;
       return result;
     }
@@ -143,7 +149,7 @@ function dateConverter() {
   };
 }
 
-function toDateString(obj) {  
+function toDateString(obj) {
   const {_seconds, _nanoseconds} = obj;
   const timestamp = new Timestamp(_seconds, _nanoseconds);
   const dateString = timestamp.toDate().toISOString();
