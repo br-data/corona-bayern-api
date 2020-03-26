@@ -12,7 +12,9 @@ Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“
 
 ## API
 
-#### Endpunkte
+<https://europe-west3-brdata-corona.cloudfunctions.net/lglApi/>
+
+### Endpunkte
 
 - `/`: alle verfügbaren Daten abrufen
 - `/date`: aktuellste Daten für alle Landkreise abrufen
@@ -20,13 +22,37 @@ Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“
 - `/county`: Daten für alle Landkreise abrufen
 - `/county/[id]`: Daten für einen Landkreis abrufen, z.B. `amberg-sulzbach`
 
-#### Parameter
+### Parameter
 
 - `?filetype=csv`: Daten als CSV-Tabelle zurückgeben
 
-#### Daten
+### Felder
 
-#### IDs
+- `name-lgl`: offizielle Bezeichnung des LGLs, z.B. "Neumarkt i.d.Opf."
+- `name`: ausgeschriebener Name, z.B. "Neumarkt in der Oberpfalz"
+- `type`: "Stadt" oder "Landkreis"
+- `lat`: Längengrad, z.B. 49.2265324
+- `long`: Breitengrat, z.B. 11.5580180
+- `pop`: Einwohnerzahl, z.B. 1471508
+- `date`: Datum für `/date`-Anfragen, z.B."2020-03-24"
+- `count`: Fallzahlen für `/date`-Anfragen, z.B. 35
+- `last-count`: letzte erfasste Fallzahlen, z.B. 43
+- `last-count-per-tsd`: letzte berechnete Fallzahlen pro 1.000 Einwohner, z.B. 0.13
+- `last-updated`: Datum der letzten Aktualisierung, z.B. "2020-03-25T19:09:05.188Z"
+- `cases`: Alle bisher erfassten Fallzahlen pro Datum für Anfragen ohne `/date`-Parameter. Beispiel: { "2020-03-25": 43, "2020-03-24": 35, "2020-03-23": 18, ... }
+
+### IDs für Landkreise und Städte
+
+Jeder Stadt und jeder Landkreis haben einen eigene ID. Die IDs werden aus Namen des LGL `name-lgl` und der Methode `toDashcase(string)` aus `./lib/to-dashcase` erzeugt. Dieses Vorgehen hilft dabei die IDs stabil zu halten, auch wenn es kleiner Änderungen (Leerzeichen, Punkte) in der Benennung seitens des LGLs gibt.
+
+Beispiel:
+
+```javascript
+toDashcase('Neumarkt i.d.Opf.') // => neumarkt-idopf
+
+```
+
+Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties.json`.
 
 ## Verwendung
 
@@ -49,6 +75,10 @@ Verwende die Google Cloud-Weboberfläche, um eine neue Firebase-Datenbank zu ers
 Für die Datenbank sollte dabei der „native Modus“ ausgewählt werden. Als Region, also den Speicheort wählen wir `europe-west3` (Frankfurt) aus. Jede Datenbank kann mehrere Sammlungen (collections) enthalten, in der die einzelnen Daten als sogenannten Dokumente gespeichert werden können. Jetzt musst du nur noch eine neue Sammlung anlegen und benennen, zum Beispiel `bayern-lgl`.
 
 In Zukunft wird das Erstellen einer Firebase-Datenbank auch über die Kommandozeile möglich sein:
+
+```console
+$ gcloud services enable firestore.googleapis.com
+```
 
 ```console
 $ gcloud alpha firestore databases create --region=europe-west3
@@ -90,7 +120,7 @@ $ npm i -g @google-cloud/functions-framework
 ```
 
 ```console
-$ functions-framework --target=api
+$ functions-framework --target=lglApi
 ```
 
 ```console
@@ -99,33 +129,51 @@ $ curl -X GET 'localhost:8080?date=2020-03-18'
 
 ### Scraper deployen
 
+
+```console
+$ gcloud services enable cloudfunctions.googleapis.com
+```
+
 ```console
 $ gcloud config set functions/region europe-west3
 ```
 
 ```console
-$ gcloud pubsub topics create scraper-start
+$ gcloud pubsub topics create lgl-scraper-start
 ```
 
 ```console
-$ gcloud functions deploy scaper --runtime nodejs10 --trigger-topic scraper-start
+$ gcloud functions deploy lglScraper --runtime nodejs10 --trigger-topic lgl-scraper-start
 ```
 
 ```console
-$ gcloud scheduler jobs create pubsub corona-scaper --topic=scraper-start --schedule="0 8-20/2 * * 1-5" --time-zone="Europe/Brussels" --message-body="undefined"
+Allow unauthenticated invocations of new function [lglScraper]? (y/N)?
+```
+
+```console
+$ gcloud alpha functions add-iam-policy-binding lglScraper --member=allUsers --role=roles/cloudfunctions.invoker
+```
+
+```console
+$ gcloud services enable cloudscheduler.googleapis.com
+```
+
+```console
+$ gcloud scheduler jobs create pubsub corona-scaper --topic=lgl-scraper-start --schedule="0 8-20/2 * * *" --time-zone="Europe/Brussels" --message-body="undefined"
 ```
 
 ### API deployen
 
 ```console
-$ gcloud functions deploy api --runtime nodejs10 --trigger-http GET --allow-unauthenticated
+$ gcloud functions deploy lglApi --runtime nodejs10 --trigger-http --allow-unauthenticated
 ```
 
 ## To Do
 
-- Fälle pro 1.000 Einwohner hinzufügen
-- Daten den gestrigen Tags zurückgeben, falls keine Daten für den heutige Tag verfügbar sind,
-- Amtliche Gemeindeschlüssel (AGS) für Landkreise und kreisfreie Städte hinzufügen
-- Dokumenten-ID den Landkreise und kreisfreie Städte hinzufügen ({id: amberg-sulzbach})
+- Fälle pro 1.000 Einwohner für alle Endpunkte hinzufügen
+- Verdopplungszeit (alle n Tage) hinzufügen
+- Amtliche Gemeindeschlüssel (AGS) für Landkreise und kreisfreie Städte hinzufügen `{ "ags": "09371" }`
+- Dokumenten-ID den Landkreise und kreisfreie Städte hinzufügen `{ "id": "amberg-sulzbach" }`
 - Scraper und API auf zwei Dateien aufteilen, wenn GCloud das erlaubt
+- Bessere Fehlerbehandlung und Reporting für die API
 - Dynamischer Import (oder `require()`) von Modulen
