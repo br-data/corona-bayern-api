@@ -174,6 +174,7 @@ $ gcloud functions deploy lglApi --runtime nodejs10 --trigger-http --allow-unaut
 - Verdopplungszeit (alle n Tage) hinzufügen
 - Amtliche Gemeindeschlüssel (AGS) für Landkreise und kreisfreie Städte hinzufügen `{ "ags": "09371" }`
 - Dokumenten-ID den Landkreise und kreisfreie Städte hinzufügen `{ "id": "amberg-sulzbach" }`
-- Scraper und API auf zwei Dateien aufteilen, wenn GCloud das erlaubt
+- Festlegen, wie viele Tage `getSpecificDate()` maximal zurückgehen darf
 - Bessere Fehlerbehandlung und Reporting für die API
-- Dynamischer Import (oder `require()`) von Modulen
+- Dynamischer Import oder `require()` von Modulen
+- Scraper und API auf zwei Dateien aufteilen, wenn GCloud das erlaubt
