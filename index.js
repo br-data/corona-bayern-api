@@ -13,13 +13,18 @@ const collection = db.collection(config.firestore.collectionId);
 exports.lglScraper = async (req, res) => {
   const html = await scrapeBody(config.url).catch(console.error);
   const data = await scrapeData(html).catch(console.error);
-  const date = data.date || new Date().toISOString().split('T')[0];
+  const dateString = data.date || new Date().toISOString().split('T')[0];
 
   if (data.result) {
-    const update = await updateDatabase(data.result, date).catch(console.error);
-    res.send(`Update successfull: ${update.length} documents updated`);
+    const update = await updateDatabase(data.result, dateString).catch(console.error);
+    
+    if (res) {
+      res.send(`Update successfull: ${update.length} documents updated`);
+    }
   } else {
-    res.send('Update failed: Could not extract data from external site');
+    if (res) {
+      res.send('Update failed: Could not extract data from external site');
+    }
   }
 };
 
@@ -82,14 +87,23 @@ async function handleDate(req, res) {
   const dateObject = hasDateArgument ? new Date(dateArgument) : new Date();
   const dateString = dateObject.toISOString().split('T')[0];
 
-  const fieldPath = new FieldPath('cases', dateString);
-  const snapshot = await collection
-    .where(fieldPath, '>', 0)
-    .withConverter(flatConverter(dateString))
-    .get();
-  const result = snapshot.docs.map(doc => doc.data()) || [];
+  (async function getSpecificDate(dateString) {
+    const fieldPath = new FieldPath('cases', dateString);
+    const snapshot = await collection
+      .where(fieldPath, '>', 0)
+      .withConverter(flatConverter(dateString))
+      .get();
+    const result = snapshot.docs.map(doc => doc.data()) || [];
 
-  handleResponse(req, res, result);
+    if (hasDateArgument || result.length) {
+      handleResponse(req, res, result);
+    } else {
+      const prevDate = new Date(dateString);
+      prevDate.setDate(prevDate.getDate() - 1);
+      const prevDateString = prevDate.toISOString().split('T')[0];
+      getSpecificDate(prevDateString);
+    }
+  })(dateString);
 }
 
 async function handleCounty(req, res) {
@@ -124,7 +138,7 @@ function handleResponse(req, res, result) {
   const contentType = isCsv ? 'text/csv' : 'application/json';
   const response = isCsv ? jsonToCsv(result) : result;
 
-  res.set(contentType);
+  res.set('Content-Type', contentType);
   res.send(response);
 }
 
