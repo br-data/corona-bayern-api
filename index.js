@@ -35,10 +35,18 @@ async function scrapeBody(url) {
 }
 
 async function scrapeData(html) {
-  const $ = cheerio.load(html);
+  const tableHeaders = [
+    'name-lgl',
+    'count',
+    'count-new',
+    'count-per-100tsd',
+    'deaths',
+    'deaths-new'
+  ];
 
+  const $ = cheerio.load(html);
   const tableHtml = $('#content_1c > div:nth-child(13) > div').html();
-  const tableJson = tableToJson(tableHtml, ['name-lgl', 'count']);
+  const tableJson = tableToJson(tableHtml, tableHeaders);
   const cleanJson = tableJson.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
 
   const dateText = $('#content_1c > div:nth-child(12) > div > table > caption').text();
@@ -61,8 +69,9 @@ async function updateDatabase(data, date) {
       doc,
       {
         'last-updated': lastUpdated,
-        'last-count': parseInt(d.count.replace('.', '')),
-        'cases': { [date]: parseInt(d.count.replace('.', '')) }
+        'last-count': parseInt(d.count.replace('.', '')) || 0,
+        'last-deaths': parseInt(d.deaths.replace('.', '')) || 0,
+        'cases': { [date]: parseInt(d.count.replace('.', '')) || 0 }
       },
       { merge: true }
     );

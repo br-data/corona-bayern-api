@@ -38,6 +38,7 @@ Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“
 - `count`: Fallzahlen für `/date`-Anfragen, z.B. 35
 - `last-count`: letzte erfasste Fallzahlen, z.B. 43
 - `last-count-per-tsd`: letzte berechnete Fallzahlen pro 1.000 Einwohner, z.B. 0.13
+- `last-deaths`: letzte erfasste Todefälle, z.B. 2
 - `last-updated`: Datum der letzten Aktualisierung, z.B. "2020-03-25T19:09:05.188Z"
 - `cases`: Alle bisher erfassten Fallzahlen pro Datum für Anfragen ohne `/date`-Parameter. Beispiel: { "2020-03-25": 43, "2020-03-24": 35, "2020-03-23": 18, ... }
 
