@@ -9,12 +9,20 @@
     "url": "git@github.com:br-data/corona-bayern-scraper.git"
   },
   "main": "index.js",
+  "scripts": {
+    "watch": "npm-watch start",
+    "start": "functions-framework --target=lglApi"
+  },
+  "watch": {
+    "start": "*.js"
+  },
   "dependencies": {
     "@google-cloud/firestore": "^3.7.0",
     "cheerio": "^1.0.0-rc.3",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "npm-watch": "^0.6.0"
   }
 }
