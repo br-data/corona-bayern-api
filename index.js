@@ -61,8 +61,8 @@ async function updateDatabase(data, date) {
       doc,
       {
         'last-updated': lastUpdated,
-        'last-count': parseInt(d.count),
-        'cases': { [date]: parseInt(d.count) }
+        'last-count': parseInt(d.count.replace('.', '')),
+        'cases': { [date]: parseInt(d.count.replace('.', '')) }
       },
       { merge: true }
     );
