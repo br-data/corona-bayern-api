@@ -18,11 +18,11 @@ exports.lglScraper = async (req, res) => {
   if (data.result) {
     const update = await updateDatabase(data.result, dateString).catch(console.error);
     
-    if (res) {
+    if (res && res.send) {
       res.send(`Update successfull: ${update.length} documents updated`);
     }
   } else {
-    if (res) {
+    if (res && res.send) {
       res.send('Update failed: Could not extract data from external site');
     }
   }
@@ -45,11 +45,11 @@ async function scrapeData(html) {
   ];
 
   const $ = cheerio.load(html);
-  const tableHtml = $('#content_1c > div:nth-child(13) > div').html();
+  const tableHtml = $('table').eq(2).parent().html();
   const tableJson = tableToJson(tableHtml, tableHeaders);
   const cleanJson = tableJson.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
 
-  const dateText = $('#content_1c > div:nth-child(12) > div > table > caption').text();
+  const dateText = $('table').eq(2).find('caption').text();
   const dateMatch = dateText.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
   const dateString = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : undefined;
 
