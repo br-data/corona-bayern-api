@@ -10,9 +10,15 @@ Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern fi
 
 Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen. Das LGL aktualisiert diese Zahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
 
+### Einschränkungen
+
+- Keine Daten vor dem 12.3.2020
+- Unklare Datenlage vor dem 20.3.2020: Teilweise gehen die Fallzahlen in einzelnen Landkreise wieder zurück
+- Tote erst ab 28.3.2020
+
 ## API
 
-<https://europe-west3-brdata-corona.cloudfunctions.net/lglApi/>
+URL: <https://europe-west3-brdata-corona.cloudfunctions.net/lglApi/>
 
 ### Endpunkte
 
@@ -61,12 +67,16 @@ Diese Anleitung geht davon aus, dass du bereits ein Google Cloud-Konto und ein R
 
 ### Projekt anlegen
 
-```console
-$ gcloud projects create corona-scaper
-```
+Neues Projekt mit der ID `brdata-corona` erstellen. Der Parameter `--name` ist optional.
 
 ```console
-$ gcloud config set project corona-scaper
+$ gcloud projects create brdata-corona --name=30-BRData-corona
+```
+
+Das Projekt als aktuelles Arbeitsprojekt festlegen:
+
+```console
+$ gcloud config set project brdata-corona
 ```
 
 ### Firebase Datenbank erstellen
@@ -77,9 +87,13 @@ Für die Datenbank sollte dabei der „native Modus“ ausgewählt werden. Als R
 
 In Zukunft wird das Erstellen einer Firebase-Datenbank auch über die Kommandozeile möglich sein:
 
+Firestore-API aktivieren:
+
 ```console
 $ gcloud services enable firestore.googleapis.com
 ```
+
+Neue Datenbank im Rechenzentrum *europe-west3* (Frankfurt) anlegen:
 
 ```console
 $ gcloud alpha firestore databases create --region=europe-west3
@@ -114,59 +128,96 @@ Nachdem du die Datenbank, Sammlung und das Dienstkontoschlüssel erstellt hast, 
 
 ### Daten importieren
 
-### Lokale Entwicklungsumgebung
+**Achtung:** Überschreibt alle bisherigen Daten in der Datenbank! Basisdatensatz aller Landkreise mit Geodaten (Lat/Long) importieren:
 
 ```console
-$ npm i -g @google-cloud/functions-framework
+$ node import-counties.js ./data/counties.json
 ```
 
-```console
-$ functions-framework --target=lglApi
-```
+Fehlende Daten für einzelne Tage importieren:
 
 ```console
-$ curl -X GET 'localhost:8080?date=2020-03-18'
+$ node import/import-daily.js ./data/daily/2020-03-15.json
 ```
 
 ### Scraper deployen
 
+Google Cloud Function für das aktuelle Projekt aktivieren:
 
 ```console
 $ gcloud services enable cloudfunctions.googleapis.com
 ```
 
+Rechenzentrum *europe-west3* (Frankfurt) als Ziel für das Funktions-Deployment festlegen. Das gewählte Rechenzentrum muss identisch sein, mit dem Rechenzentrum für die Firestore-Datenbank:
+
 ```console
 $ gcloud config set functions/region europe-west3
 ```
+
+Neues Pub/Sub-Thema *lgl-scraper-start* erstellen, welches die Scraper-Funktion auslöst:
 
 ```console
 $ gcloud pubsub topics create lgl-scraper-start
 ```
 
+Scraper-Funktion deployen und den Pub/Sub-Auslöser *lgl-scraper-start* festlegen
+
 ```console
 $ gcloud functions deploy lglScraper --runtime nodejs10 --trigger-topic lgl-scraper-start
 ```
+
+Die Abfrage, ob auch eine authentifizierte Ausführung erlaubt werden soll, kann in dem meisten Fällen mit „Nein“ beantwortet werden, da die Funktion vom Google Cloud Scheduler zeitgesteuert ausgelöst werden kann.
 
 ```console
 Allow unauthenticated invocations of new function [lglScraper]? (y/N)?
 ```
 
+Falls man später doch eine nicht authentifizierte Ausführung erlauben möchte, muss man die entsprechende IAM-Richtline ändern:
+
 ```console
 $ gcloud alpha functions add-iam-policy-binding lglScraper --member=allUsers --role=roles/cloudfunctions.invoker
 ```
+
+## Scraper zeitgesteuert starten
+
+Der Google Cloud Scheduler erlaubt es den Scraper zeitgesteuert, zu bestimmten Uhrzeiten, auszuführen. Dazu muss der Cloud Scheduler jedoch erstmal für das Projekt aktiviert werden:
 
 ```console
 $ gcloud services enable cloudscheduler.googleapis.com
 ```
 
+Wie häufig die Scraper-Funktion ausgeführt werden soll, kann mit dem Parameter `--schedule` festgelegt werden, welche die Crontab-Syntax unterstützt. Dabei hilft zum Beispiel der [crontab.guru](https://crontab.guru/). Außerdem muss die gültige Zeitzone `--time-zone` und der Pub/Sub-Auslöser `--topic` festgelegt werden. In diesem Beispiel wird der Scraper alle zwei Stunden von 8 bis 20 Uhr ausgeführt:
+
 ```console
-$ gcloud scheduler jobs create pubsub corona-scaper --topic=lgl-scraper-start --schedule="0 8-20/2 * * *" --time-zone="Europe/Brussels" --message-body="undefined"
+$ gcloud scheduler jobs create pubsub brdata-corona --topic=lgl-scraper-start --schedule="0 8-20/2 * * *" --time-zone="Europe/Brussels" --message-body="undefined"
 ```
 
 ### API deployen
 
+API-Funktion deployen. In diesem Beispiel wird der nicht authentifizierte Zugriff von außerhalb erlaubt, um den Datenaustausch zwischen API und beispielsweise einer Web-App zu ermöglichen:
+
 ```console
 $ gcloud functions deploy lglApi --runtime nodejs10 --trigger-http --allow-unauthenticated
+```
+
+### Lokale Entwicklungsumgebung
+
+Das Google Functions Framework global installieren, um Funktion lokal testen zu können;
+
+```console
+$ npm i -g @google-cloud/functions-framework
+```
+
+Funktion *lglApi* starten:
+
+```console
+$ functions-framework --target=lglApi
+```
+
+API-Anfrage an die aktivierte Funktion stellen (Beispiel):
+
+```console
+$ curl -X GET 'localhost:8080?date=2020-03-18'
 ```
 
 ## To Do
