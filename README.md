@@ -61,6 +61,59 @@ toDashcase('Neumarkt i.d.Opf.') // => neumarkt-idopf
 
 Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties.json`.
 
+## Beispiele
+
+1.) Anfrage an den Endpunkt `/date/2020-03-25`. Bei Anfragen für ein bestimmtes Datum wird kein `case`-Objekt mit Fallzahlen für andere Daten zurückgegeben. Die Rückgabe-Objekt für den Endpunkt `/date` sind identisch, nur das hierbei immer die jeweils aktuellsten Daten von heute oder gestern zurückgegeben werden.
+
+```javascript
+[
+  {
+    "name-lgl": "Ansbach Stadt",
+    "name": "Ansbach",
+    "type": "Stadt",
+    "lat": 49.2917917440462,
+    "long": 10.5691214101633,
+    "pop": 41847,
+    "date": "2020-03-25",
+    "count": 6,
+    "last-count": 24,
+    "last-count-per-tsd": 0.14,
+    "last-deaths": 43,
+    "last-updated": "2020-03-31T18:00:05.119Z"
+  },
+  {
+    // ... andere Landkreise
+  }
+]
+```
+
+2.) Anfrage an den Endpunkt `/county/ansbach-stadt`. Die Rückgabe-Objekte für die Endpunkte `/county` und `/` sind identisch. Hier werden jeweils alle verfügbaren Daten für alle Landkreise zurückgegeben.  
+
+```javascript
+[
+  {
+    "name-lgl": "Ansbach Stadt",
+    "name": "Ansbach",
+    "type": "Stadt",
+    "lat": 49.2917917440462,
+    "long": 10.5691214101633,
+    "pop": 41847,
+    "last-count": 24,
+    "last-deaths": 43,
+    "last-updated": "2020-03-31T18:00:05.119Z",
+    "cases": {
+      "2020-03-31": 24,
+      "2020-03-30": 19,
+      "2020-03-29": 24,
+      "2020-03-28": 18,
+      "2020-03-27": 15,
+      "2020-03-26": 10
+      // ... mehr Fallzahlen
+    }
+  }
+]
+```
+
 ## Verwendung
 
 Diese Anleitung geht davon aus, dass du bereits ein Google Cloud-Konto und ein Rechnungskonto dafür eingericht hast. Außerdem solltest du das Google Cloud-Kommandzeilenwerkzeug [installiert](https://cloud.google.com/sdk/install) und mit deinem Benutzerkonto [verknüpft](https://cloud.google.com/sdk/docs/initializing) haben.
