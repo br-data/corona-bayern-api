@@ -18,7 +18,7 @@ const db = new Firestore(Object.assign(
 
 async function updateDatabase(data, date) {
   const collection = db.collection(config.firestore.collectionId);
-  let writeBatch = db.batch();
+  const writeBatch = db.batch();
 
   data.forEach(d => {
     const doc = collection.doc(toDashcase(d['name-lgl']));
