@@ -43,6 +43,7 @@ Für die Verwendung der Daten in Apps und interaktiven Grafiken (Datawrapper) st
 - `name-lgl`: offizielle Bezeichnung des LGLs, z.B. "Neumarkt i.d.Opf."
 - `name`: ausgeschriebener Name, z.B. "Neumarkt in der Oberpfalz"
 - `type`: "Stadt" oder "Landkreis"
+- `district`: Regierungsbezirk, z.B. "Oberpfalz",
 - `ags`: Amtlicher Gemeindeschlüssel, z.B. "09373"
 - `lat`: Längengrad, z.B. 49.2265324
 - `long`: Breitengrat, z.B. 11.5580180
@@ -82,6 +83,7 @@ Beispiel für `/date/2020-03-25`:
     "name-lgl": "Ansbach Stadt",
     "name": "Ansbach",
     "type": "Stadt",
+    "district": "Mittelfranken",
     "ags": "09561",
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
@@ -112,6 +114,7 @@ Beispiel für `/county/ansbach-stadt`:
     "name-lgl": "Ansbach Stadt",
     "name": "Ansbach",
     "type": "Stadt",
+    "district": "Mittelfranken",
     "ags": "09561",
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
@@ -295,8 +298,7 @@ $ curl -X GET 'localhost:8080?date=2020-03-18'
 
 - Fälle pro 1.000 Einwohner für alle Endpunkte hinzufügen
 - Verdopplungszeit (alle n Tage) hinzufügen
-- Amtliche Gemeindeschlüssel (AGS) für Landkreise und kreisfreie Städte hinzufügen `{ "ags": "09371" }`
-- Dokumenten-ID den Landkreise und kreisfreie Städte hinzufügen `{ "id": "amberg-sulzbach" }`
+- Aggregation pro Regierungsbezirk oder für ganz Bayern ermöglichen
 - Festlegen, wie viele Tage `getSpecificDate()` maximal zurückgehen darf
 - Bessere Fehlerbehandlung und Reporting für die API
 - Dynamischer Import oder `require()` von Modulen
