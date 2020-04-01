@@ -1,7 +1,6 @@
 # Corona in Bayern (Scraper/API)
 
-Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 infiziert haben, ist ein wichtiger Indikator für die Ausbreitung von COVID-19.
-Krankenhäuser und Ärzte sind dazu verpflichtet Corona-Fälle an die örtlichen Gesundheitsämter zu melden. Aus der Summe dieser Meldungen ergeben sich die offiziellen Fallzahlen. In Bayern werden die aktuellen Fallzahlen durch das Bayerische Landesamt für Gesundheit und Lebensmittelsicherheit veröffentlicht.
+Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 infiziert haben, ist ein wichtiger Indikator für die Ausbreitung von COVID-19. Krankenhäuser und Ärzte sind dazu verpflichtet Corona-Fälle an die örtlichen Gesundheitsämter zu melden. Aus der Summe dieser Meldungen ergeben sich die offiziellen Fallzahlen. Im Freistaat Bayern werden die jeweils aktuellen Fallzahlen durch das Bayerische Landesamt für Gesundheit und Lebensmittelsicherheit (LGL) veröffentlicht.
 
 Die hier veröffentlichten Skripte dienen dazu die veröffentlichen Zahlen des LGL täglich in einer Datenbank zu sichern und eine Schnittstelle (API) zum Abfragen der Daten bereitzustellen.
 
@@ -13,7 +12,7 @@ Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“
 
 ### Einschränkungen
 
-Die Daten werden von uns mehrfach täglich in eine Datenbank geschrieben. Dabei sind aber folgende Einschränkungen zu beachten:
+Die Daten werden zur Zeit mehrfach täglich in einer Datenbank (Google Cloud Firestore) gesichert. Dabei sind jedoch folgende Einschränkungen zu beachten:
 
 - Für die Landkreise sind keine Zahlen vor dem 12.3.2020 verfügbar.
 - Für die Landkreise werden seitens des LGL keine Nachmeldungen (Stichwort: Meldeverzögerung) veröffentlicht. Daher können die historischen Zahlen von den Zahlen des RKIs abweichen.
@@ -40,9 +39,11 @@ Für die Verwendung der Daten in Apps und interaktiven Grafiken (Datawrapper) st
 
 ### Felder
 
+- `id`: einzigartige ID, z.B. "neumarkt-idopf"
 - `name-lgl`: offizielle Bezeichnung des LGLs, z.B. "Neumarkt i.d.Opf."
 - `name`: ausgeschriebener Name, z.B. "Neumarkt in der Oberpfalz"
 - `type`: "Stadt" oder "Landkreis"
+- `ags`: Amtlicher Gemeindeschlüssel, z.B. "09373"
 - `lat`: Längengrad, z.B. 49.2265324
 - `long`: Breitengrat, z.B. 11.5580180
 - `pop`: Einwohnerzahl, z.B. 1471508
@@ -62,7 +63,6 @@ Beispiel:
 
 ```javascript
 toDashcase('Neumarkt i.d.Opf.') // => neumarkt-idopf
-
 ```
 
 Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties.json`.
@@ -78,9 +78,11 @@ Beispiel für `/date/2020-03-25`:
 ```javascript
 [
   {
+    "id": "ansbach-stadt",
     "name-lgl": "Ansbach Stadt",
     "name": "Ansbach",
     "type": "Stadt",
+    "ags": "09561",
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
@@ -106,9 +108,11 @@ Beispiel für `/county/ansbach-stadt`:
 ```javascript
 [
   {
+    "id": "ansbach-stadt",
     "name-lgl": "Ansbach Stadt",
     "name": "Ansbach",
     "type": "Stadt",
+    "ags": "09561",
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
