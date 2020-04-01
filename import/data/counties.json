@@ -1,768 +1,960 @@
 [
   {
+    "id": "aichach-friedberg",
     "name": "Aichach-Friedberg",
     "name-lgl": "Aichach-Friedberg",
     "type": "Landkreis",
+    "ags": "09771",
     "lat": 48.453409,
     "long": 11.082892,
     "pop": 133596
   },
   {
+    "id": "altoetting",
     "name": "Altötting",
     "name-lgl": "Altötting",
     "type": "Landkreis",
+    "ags": "09171",
     "lat": 48.225938,
     "long": 12.675712,
     "pop": 111210
   },
   {
+    "id": "amberg-stadt",
     "name": "Amberg",
     "name-lgl": "Amberg Stadt",
     "type": "Stadt",
+    "ags": "09361",
     "lat": 49.4523238032009,
     "long": 11.8403362215409,
     "pop": 41970
   },
   {
+    "id": "amberg-sulzbach",
     "name": "Amberg-Sulzbach",
     "name-lgl": "Amberg-Sulzbach",
     "type": "Landkreis",
+    "ags": "09371",
     "lat": 49.5623855918672,
     "long": 11.7093625743081,
     "pop": 103109
   },
   {
+    "id": "ansbach-stadt",
     "name": "Ansbach",
     "name-lgl": "Ansbach Stadt",
     "type": "Stadt",
+    "ags": "09561",
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847
   },
   {
+    "id": "ansbach",
     "name": "Ansbach",
     "name-lgl": "Ansbach",
     "type": "Landkreis",
+    "ags": "09571",
     "lat": 49.1877007720799,
     "long": 10.3811694046684,
     "pop": 183949
   },
   {
+    "id": "aschaffenburg-stadt",
     "name": "Aschaffenburg",
     "name-lgl": "Aschaffenburg Stadt",
     "type": "Stadt",
+    "ags": "09661",
     "lat": 49.9555682275557,
     "long": 9.15922861936277,
     "pop": 70527
   },
   {
+    "id": "aschaffenburg",
     "name": "Aschaffenburg",
     "name-lgl": "Aschaffenburg",
     "type": "Landkreis",
+    "ags": "09671",
     "lat": 50.0298632010399,
     "long": 9.29020226659561,
     "pop": 174208
   },
   {
+    "id": "augsburg-stadt",
     "name": "Augsburg",
     "name-lgl": "Augsburg Stadt",
     "type": "Stadt",
+    "ags": "09761",
     "lat": 48.3493839375923,
     "long": 10.8923259074874,
     "pop": 295135
   },
   {
+    "id": "augsburg",
     "name": "Augsburg",
     "name-lgl": "Augsburg",
     "type": "Landkreis",
+    "ags": "09772",
     "lat": 48.379474,
     "long": 10.687782,
     "pop": 251534
   },
   {
+    "id": "bad-kissingen",
     "name": "Bad Kissingen",
     "name-lgl": "Bad Kissingen",
     "type": "Landkreis",
+    "ags": "09672",
     "lat": 50.2126336060404,
     "long": 9.92966183837948,
     "pop": 103218
   },
   {
+    "id": "bad-toelz",
     "name": "Bad Tölz-Wolfratshausen",
     "name-lgl": "Bad Tölz",
     "type": "Landkreis",
+    "ags": "09173",
     "lat": 47.7414335829133,
     "long": 11.5164123353478,
     "pop": 127227
   },
   {
+    "id": "bamberg-stadt",
     "name": "Bamberg",
     "name-lgl": "Bamberg Stadt",
     "type": "Stadt",
+    "ags": "09461",
     "lat": 49.895431,
     "long": 10.897137,
     "pop": 77592
   },
   {
+    "id": "bamberg",
     "name": "Bamberg",
     "name-lgl": "Bamberg",
     "type": "Landkreis",
+    "ags": "09471",
     "lat": 49.93985,
     "long": 11.087137,
     "pop": 147086
   },
   {
+    "id": "bayreuth-stadt",
     "name": "Bayreuth",
     "name-lgl": "Bayreuth Stadt",
     "type": "Stadt",
+    "ags": "09462",
     "lat": 49.945412,
     "long": 11.584207,
     "pop": 74657
   },
   {
+    "id": "bayreuth",
     "name": "Bayreuth",
     "name-lgl": "Bayreuth",
     "type": "Landkreis",
+    "ags": "09472",
     "lat": 49.8066338070837,
     "long": 11.4936412729834,
     "pop": 103656
   },
   {
+    "id": "berchtesgadener-land",
     "name": "Berchtesgadener Land",
     "name-lgl": "Berchtesgadener Land",
     "type": "Landkreis",
+    "ags": "09172",
     "lat": 47.6454174066272,
     "long": 12.9310082384982,
     "pop": 105722
   },
   {
+    "id": "cham",
     "name": "Cham",
     "name-lgl": "Cham",
     "type": "Landkreis",
+    "ags": "09372",
     "lat": 49.2304138987159,
     "long": 12.6694863068233,
-    "pop": 127882
+    "pop": 12788
   },
   {
+    "id": "coburg-stadt",
     "name": "Coburg",
     "name-lgl": "Coburg Stadt",
     "type": "Stadt",
+    "ags": "09463",
     "lat": 50.258998,
     "long": 10.961291,
     "pop": 41249
   },
   {
+    "id": "coburg",
     "name": "Coburg",
     "name-lgl": "Coburg",
     "type": "Landkreis",
+    "ags": "09473",
     "lat": 50.3455664077374,
     "long": 10.8387730368192,
     "pop": 86906
   },
   {
+    "id": "dachau",
     "name": "Dachau",
     "name-lgl": "Dachau",
     "type": "Landkreis",
+    "ags": "09174",
     "lat": 48.3226938092016,
     "long": 11.3626676257505,
     "pop": 153884
   },
   {
+    "id": "deggendorf",
     "name": "Deggendorf",
     "name-lgl": "Deggendorf",
     "type": "Landkreis",
+    "ags": "09271",
     "lat": 48.7859588519353,
     "long": 13.0023324016822,
     "pop": 119326
   },
   {
+    "id": "dillingen-ad-donau",
     "name": "Dillingen an der Donau",
     "name-lgl": "Dillingen a.d. Donau",
     "type": "Landkreis",
+    "ags": "09773",
     "lat": 48.589769967296,
     "long": 10.5416487718325,
     "pop": 96021
   },
   {
+    "id": "dingolfing-landau",
     "name": "Dingolfing-Landau",
     "name-lgl": "Dingolfing-Landau",
     "type": "Landkreis",
+    "ags": "09279",
     "lat": 48.6393237292882,
     "long": 12.6338824371281,
     "pop": 96217
   },
   {
+    "id": "donau-ries",
     "name": "Donau-Ries",
     "name-lgl": "Donau-Ries",
     "type": "Landkreis",
+    "ags": "09779",
     "lat": 48.8172781562418,
     "long": 10.7199591797926,
     "pop": 133496
   },
   {
+    "id": "ebersberg",
     "name": "Ebersberg",
     "name-lgl": "Ebersberg",
     "type": "Landkreis",
+    "ags": "09175",
     "lat": 48.075524,
     "long": 11.965774,
     "pop": 142142
   },
   {
+    "id": "eichstaett",
     "name": "Eichstätt",
     "name-lgl": "Eichstätt",
     "type": "Landkreis",
+    "ags": "09176",
     "lat": 48.9134888352785,
     "long": 11.3780762901309,
     "pop": 132341
   },
   {
+    "id": "erding",
     "name": "Erding",
     "name-lgl": "Erding",
     "type": "Landkreis",
+    "ags": "09177",
     "lat": 48.3124470265105,
     "long": 12.0175358619147,
     "pop": 137660
   },
   {
+    "id": "erlangen-stadt",
     "name": "Erlangen",
     "name-lgl": "Erlangen Stadt",
     "type": "Stadt",
+    "ags": "09562",
     "lat": 49.582771,
     "long": 10.991866,
     "pop": 111962
   },
   {
+    "id": "erlangen-hoechstadt",
     "name": "Erlangen-Höchstadt",
     "name-lgl": "Erlangen-Höchstadt",
     "type": "Landkreis",
+    "ags": "09572",
     "lat": 49.688893,
     "long": 10.861415,
     "pop": 136271
   },
   {
+    "id": "forchheim",
     "name": "Forchheim",
     "name-lgl": "Forchheim",
     "type": "Landkreis",
+    "ags": "09474",
     "lat": 49.721727,
     "long": 11.06568,
     "pop": 116099
   },
   {
+    "id": "freising",
     "name": "Freising",
     "name-lgl": "Freising",
     "type": "Landkreis",
+    "ags": "09178",
     "lat": 48.4454947006442,
     "long": 11.7478842352589,
     "pop": 179116
   },
   {
+    "id": "freyung-grafenau",
     "name": "Freyung-Grafenau",
     "name-lgl": "Freyung-Grafenau",
     "type": "Landkreis",
+    "ags": "09272",
     "lat": 48.811368,
     "long": 13.54415,
     "pop": 78355
   },
   {
+    "id": "fuerstenfeldbruck",
     "name": "Fürstenfeldbruck",
     "name-lgl": "Fürstenfeldbruck",
     "type": "Landkreis",
+    "ags": "09179",
     "lat": 48.1893250777071,
     "long": 11.2085809819472,
     "pop": 219320
   },
   {
+    "id": "fuerth-stadt",
     "name": "Fürth",
     "name-lgl": "Fürth Stadt",
     "type": "Stadt",
+    "ags": "09563",
     "lat": 49.4873703225354,
     "long": 10.969746684052,
     "pop": 127748
   },
   {
+    "id": "fuerth",
     "name": "Fürth",
     "name-lgl": "Fürth",
     "type": "Landkreis",
+    "ags": "09573",
     "lat": 49.4372961904926,
     "long": 10.8464773690094,
     "pop": 117387
   },
   {
+    "id": "garmisch-partenkirchen",
     "name": "Garmisch-Partenkirchen",
     "name-lgl": "Garmisch-Partenkirchen",
     "type": "Landkreis",
+    "ags": "09180",
     "lat": 47.5772989707073,
     "long": 11.1181857575702,
     "pop": 88467
   },
   {
+    "id": "guenzburg",
     "name": "Günzburg",
     "name-lgl": "Günzburg",
     "type": "Landkreis",
+    "ags": "09774",
     "lat": 48.3533338745875,
     "long": 10.393056765199,
     "pop": 125747
   },
   {
+    "id": "hassberge",
     "name": "Haßberge",
     "name-lgl": "Haßberge",
     "type": "Landkreis",
+    "ags": "09674",
     "lat": 50.035764,
     "long": 10.517154,
     "pop": 84599
   },
   {
+    "id": "hof-stadt",
     "name": "Hof",
     "name-lgl": "Hof Stadt",
     "type": "Stadt",
+    "ags": "09464",
     "lat": 50.316424,
     "long": 11.918817,
     "pop": 45930
   },
   {
+    "id": "hof",
     "name": "Hof",
     "name-lgl": "Hof",
     "type": "Landkreis",
+    "ags": "09475",
     "lat": 50.2175636638167,
     "long": 11.7864058962097,
-    "pop": 95311
+    "pop": 9531
   },
   {
+    "id": "ingolstadt-stadt",
     "name": "Ingolstadt",
     "name-lgl": "Ingolstadt Stadt",
     "type": "Stadt",
+    "ags": "09161",
     "lat": 48.7562808207919,
     "long": 11.4088936188915,
     "pop": 136981
   },
   {
+    "id": "kaufbeuren-stadt",
     "name": "Kaufbeuren",
     "name-lgl": "Kaufbeuren Stadt",
     "type": "Stadt",
+    "ags": "09762",
     "lat": 47.882969,
     "long": 10.625408,
     "pop": 43893
   },
   {
+    "id": "kelheim",
     "name": "Kelheim",
     "name-lgl": "Kelheim",
     "type": "Landkreis",
+    "ags": "09273",
     "lat": 48.8374820430181,
     "long": 11.8865622146819,
     "pop": 122258
   },
   {
+    "id": "kempten-stadt",
     "name": "Kempten",
     "name-lgl": "Kempten Stadt",
     "type": "Stadt",
+    "ags": "09763",
     "lat": 47.7374364383967,
     "long": 10.3157889217496,
     "pop": 68907
   },
   {
+    "id": "kitzingen",
     "name": "Kitzingen",
     "name-lgl": "Kitzingen",
     "type": "Landkreis",
+    "ags": "09675",
     "lat": 49.7618638696856,
     "long": 10.2609481225567,
     "pop": 90909
   },
   {
+    "id": "kronach",
     "name": "Kronach",
     "name-lgl": "Kronach",
     "type": "Landkreis",
+    "ags": "09476",
     "lat": 50.3308144261184,
     "long": 11.3934849545112,
     "pop": 67135
   },
   {
+    "id": "kulmbach",
     "name": "Kulmbach",
     "name-lgl": "Kulmbach",
     "type": "Landkreis",
+    "ags": "09477",
     "lat": 50.104806,
     "long": 11.448023,
     "pop": 71845
   },
   {
+    "id": "landsberg-am-lech",
     "name": "Landsberg am Lech",
     "name-lgl": "Landsberg am Lech",
     "type": "Landkreis",
+    "ags": "09181",
     "lat": 48.0247012140085,
     "long": 10.9389293552914,
     "pop": 120071
   },
   {
+    "id": "landshut-stadt",
     "name": "Landshut",
     "name-lgl": "Landshut Stadt",
     "type": "Stadt",
+    "ags": "09261",
     "lat": 48.533862,
     "long": 12.148372,
     "pop": 72404
   },
   {
+    "id": "landshut",
     "name": "Landshut",
     "name-lgl": "Landshut",
     "type": "Landkreis",
+    "ags": "09274",
     "lat": 48.670456,
     "long": 12.106601,
     "pop": 158698
   },
   {
+    "id": "lichtenfels",
     "name": "Lichtenfels",
     "name-lgl": "Lichtenfels",
     "type": "Landkreis",
+    "ags": "09478",
     "lat": 50.118865697475,
     "long": 11.1238333278554,
     "pop": 66838
   },
   {
+    "id": "lindau-bodensee",
     "name": "Lindau (Bodensee)",
     "name-lgl": "Lindau (Bodensee)",
     "type": "Landkreis",
+    "ags": "09776",
     "lat": 47.6108332281354,
     "long": 9.88343584523848,
     "pop": 81669
   },
   {
+    "id": "main-spessart",
     "name": "Main-Spessart",
     "name-lgl": "Main-Spessart",
     "type": "Landkreis",
+    "ags": "09677",
     "lat": 49.9902534991352,
     "long": 9.6446015473433,
     "pop": 126365
   },
   {
+    "id": "memmingen-stadt",
     "name": "Memmingen",
     "name-lgl": "Memmingen Stadt",
     "type": "Stadt",
+    "ags": "09764",
     "lat": 47.9834628447018,
     "long": 10.1684961362747,
     "pop": 43837
   },
   {
+    "id": "miesbach",
     "name": "Miesbach",
     "name-lgl": "Miesbach",
     "type": "Landkreis",
+    "ags": "09182",
     "lat": 47.7574190922338,
     "long": 11.8135963486147,
     "pop": 99726
   },
   {
+    "id": "miltenberg",
     "name": "Miltenberg",
     "name-lgl": "Miltenberg",
     "type": "Landkreis",
+    "ags": "09676",
     "lat": 49.7618638696856,
     "long": 9.23627194126444,
     "pop": 128756
   },
   {
+    "id": "muehldorf-ainn",
     "name": "Mühldorf am Inn",
     "name-lgl": "Mühldorf a.Inn",
     "type": "Landkreis",
+    "ags": "09183",
     "lat": 48.2509231071583,
     "long": 12.4027524714231,
     "pop": 115250
   },
   {
+    "id": "muenchen-stadt",
     "name": "München",
     "name-lgl": "München Stadt",
     "type": "Stadt",
+    "ags": "09162",
     "lat": 48.152126,
     "long": 11.544467,
     "pop": 1471508
   },
   {
+    "id": "muenchen",
     "name": "München",
     "name-lgl": "München",
     "type": "Landkreis",
+    "ags": "09184",
     "lat": 48.0199880938083,
     "long": 11.6382667158327,
     "pop": 348871
   },
   {
+    "id": "neuburg-schrobenhausen",
     "name": "Neuburg-Schrobenhausen",
     "name-lgl": "Neuburg-Schrobenhausen",
     "type": "Landkreis",
+    "ags": "09185",
     "lat": 48.6596836138332,
     "long": 11.2162853141374,
     "pop": 96680
   },
   {
+    "id": "neumarkt-idopf",
     "name": "Neumarkt in der Oberpfalz",
     "name-lgl": "Neumarkt i.d.Opf.",
     "type": "Landkreis",
+    "ags": "09373",
     "lat": 49.226532411996,
     "long": 11.5580180972052,
     "pop": 133561
   },
   {
+    "id": "neustadt-ad-aisch-bad-windsheim",
     "name": "Neustadt an der Aisch-Bad Windsheim",
     "name-lgl": "Neustadt a.d. Aisch-Bad Windsheim",
     "type": "Landkreis",
+    "ags": "09575",
     "lat": 49.5623855918672,
     "long": 10.4689650916912,
     "pop": 100364
   },
   {
+    "id": "neustadt-ad-waldnaab",
     "name": "Neustadt an der Waldnaab",
     "name-lgl": "Neustadt a.d. Waldnaab",
     "type": "Landkreis",
+    "ags": "09374",
     "lat": 49.7369738033322,
     "long": 11.8634492181114,
     "pop": 94352
   },
   {
+    "id": "neu-ulm",
     "name": "Neu-Ulm",
     "name-lgl": "Neu-Ulm",
     "type": "Landkreis",
+    "ags": "09775",
     "lat": 48.301960809844,
     "long": 10.1374785137895,
     "pop": 174200
   },
   {
+    "id": "nuernberg-stadt",
     "name": "Nürnberg",
     "name-lgl": "Nürnberg Stadt",
     "type": "Stadt",
+    "ags": "09564",
     "lat": 49.446007,
     "long": 11.07977,
     "pop": 518365
   },
   {
+    "id": "nuernberger-land",
     "name": "Nürnberger Land",
     "name-lgl": "Nürnberger Land",
     "type": "Landkreis",
+    "ags": "09574",
     "lat": 49.4973790087697,
     "long": 11.3780762901309,
     "pop": 170365
   },
   {
+    "id": "oberallgaeu",
     "name": "Oberallgäu",
     "name-lgl": "Oberallgäu",
     "type": "Landkreis",
+    "ags": "09780",
     "lat": 47.516255,
     "long": 10.277425,
     "pop": 155362
   },
   {
+    "id": "ostallgaeu",
     "name": "Ostallgäu",
     "name-lgl": "Ostallgäu",
     "type": "Landkreis",
+    "ags": "09777",
     "lat": 47.7370506161643,
     "long": 10.6130091490705,
     "pop": 140316
   },
   {
+    "id": "passau-stadt",
     "name": "Passau",
     "name-lgl": "Passau Stadt",
     "type": "Stadt",
+    "ags": "09262",
     "lat": 48.57819474681,
     "long": 13.4197243205251,
     "pop": 52469
   },
   {
+    "id": "passau",
     "name": "Passau",
     "name-lgl": "Passau",
     "type": "Landkreis",
+    "ags": "09275",
     "lat": 48.4965743086636,
     "long": 13.2425246801513,
     "pop": 192043
   },
   {
+    "id": "pfaffenhofen-adilm",
     "name": "Pfaffenhofen an der Ilm",
     "name-lgl": "Pfaffenhofen a.d.Ilm",
     "type": "Landkreis",
+    "ags": "09186",
     "lat": 48.5985792965191,
     "long": 11.5167542695539,
     "pop": 127151
   },
   {
+    "id": "regen",
     "name": "Regen",
     "name-lgl": "Regen",
     "type": "Landkreis",
+    "ags": "09276",
     "lat": 49.0203770959452,
     "long": 13.1271496872543,
     "pop": 77656
   },
   {
+    "id": "regensburg-stadt",
     "name": "Regensburg",
     "name-lgl": "Regensburg Stadt",
     "type": "Stadt",
+    "ags": "09362",
     "lat": 49.0125808663994,
     "long": 12.1107803618816,
     "pop": 152610
   },
   {
+    "id": "regensburg",
     "name": "Regensburg",
     "name-lgl": "Regensburg",
     "type": "Landkreis",
+    "ags": "09375",
     "lat": 49.0163286819421,
     "long": 12.3034382828995,
     "pop": 193572
   },
   {
+    "id": "rhoen-grabfeld",
     "name": "Rhön-Grabfeld",
     "name-lgl": "Rhön-Grabfeld",
     "type": "Landkreis",
+    "ags": "09673",
     "lat": 50.3897948687147,
     "long": 10.2147221294157,
     "pop": 79690
   },
   {
+    "id": "rosenheim-stadt",
     "name": "Rosenheim",
     "name-lgl": "Rosenheim Stadt",
     "type": "Stadt",
+    "ags": "09163",
     "lat": 47.8440398976524,
     "long": 12.1099878481968,
     "pop": 63324
   },
   {
+    "id": "rosenheim",
     "name": "Rosenheim",
     "name-lgl": "Rosenheim",
     "type": "Landkreis",
+    "ags": "09187",
     "lat": 47.961946,
     "long": 12.204572,
     "pop": 260983
   },
   {
+    "id": "roth",
     "name": "Roth",
     "name-lgl": "Roth",
     "type": "Landkreis",
+    "ags": "09576",
     "lat": 49.2187685237296,
     "long": 11.1181857575702,
-    "pop": 126958
+    "pop": 12695
   },
   {
+    "id": "rottal-inn",
     "name": "Rottal-Inn",
     "name-lgl": "Rottal-Inn",
     "type": "Landkreis",
+    "ags": "09277",
     "lat": 48.4301607909982,
     "long": 12.8727167350233,
     "pop": 120659
   },
   {
+    "id": "schwabach-stadt",
     "name": "Schwabach",
     "name-lgl": "Schwabach Stadt",
     "type": "Stadt",
+    "ags": "09565",
     "lat": 49.327516,
     "long": 11.029777,
     "pop": 40792
   },
   {
+    "id": "schwandorf",
     "name": "Schwandorf",
     "name-lgl": "Schwandorf",
     "type": "Landkreis",
+    "ags": "09376",
     "lat": 49.3660738697256,
     "long": 12.2474850079843,
     "pop": 147189
   },
   {
+    "id": "schweinfurt-stadt",
     "name": "Schweinfurt",
     "name-lgl": "Schweinfurt Stadt",
     "type": "Stadt",
+    "ags": "09662",
     "lat": 50.045714,
     "long": 10.223773,
     "pop": 54032
   },
   {
+    "id": "schweinfurt",
     "name": "Schweinfurt",
     "name-lgl": "Schweinfurt",
     "type": "Landkreis",
+    "ags": "09678",
     "lat": 49.9555682275557,
     "long": 10.3148784478878,
     "pop": 115106
   },
   {
+    "id": "starnberg",
     "name": "Starnberg",
     "name-lgl": "Starnberg",
     "type": "Landkreis",
+    "ags": "09188",
     "lat": 48.0092406890433,
     "long": 11.2856243038489,
     "pop": 136092
   },
   {
+    "id": "straubing-stadt",
     "name": "Straubing",
     "name-lgl": "Straubing Stadt",
     "type": "Stadt",
+    "ags": "09263",
     "lat": 48.877309,
     "long": 12.585256,
     "pop": 47794
   },
   {
+    "id": "straubing-bogen",
     "name": "Straubing-Bogen",
     "name-lgl": "Straubing-Bogen",
     "type": "Landkreis",
+    "ags": "09278",
     "lat": 48.9935130644356,
     "long": 12.6860206221275,
     "pop": 100649
   },
   {
+    "id": "tirschenreuth",
     "name": "Tirschenreuth",
     "name-lgl": "Tirschenreuth",
     "type": "Landkreis",
+    "ags": "09377",
     "lat": 49.9158973015891,
     "long": 12.1716225057181,
     "pop": 72504
   },
   {
+    "id": "traunstein",
     "name": "Traunstein",
     "name-lgl": "Traunstein",
     "type": "Landkreis",
+    "ags": "09189",
     "lat": 47.868936,
     "long": 12.637012,
     "pop": 177089
   },
   {
+    "id": "unterallgaeu",
     "name": "Unterallgäu",
     "name-lgl": "Unterallgäu",
     "type": "Landkreis",
+    "ags": "09778",
     "lat": 48.065251,
     "long": 10.485471,
     "pop": 144041
   },
   {
+    "id": "weiden-stadt",
     "name": "Weiden in der Oberpfalz",
     "name-lgl": "Weiden Stadt",
     "type": "Stadt",
+    "ags": "09363",
     "lat": 49.673149,
     "long": 12.137639,
     "pop": 42520
   },
   {
+    "id": "weilheim-schongau",
     "name": "Weilheim-Schongau",
     "name-lgl": "Weilheim-Schongau",
     "type": "Landkreis",
+    "ags": "09190",
     "lat": 47.8043516216407,
     "long": 11.0426555740801,
     "pop": 135348
   },
   {
+    "id": "weissenburg-gunzenhausen",
     "name": "Weißenburg-Gunzenhausen",
     "name-lgl": "Weißenburg-Gunzenhausen",
     "type": "Landkreis",
+    "ags": "09577",
     "lat": 49.0242747528277,
     "long": 10.9042132680181,
     "pop": 94393
   },
   {
+    "id": "wunsiedel-ifichtelgebirge",
     "name": "Wunsiedel im Fichtelgebirge",
     "name-lgl": "Wunsiedel i.Fichtelgebirge",
     "type": "Landkreis",
+    "ags": "09479",
     "lat": 50.0842732455229,
     "long": 12.0329445262951,
     "pop": 73178
   },
   {
+    "id": "wuerzburg-stadt",
     "name": "Würzburg",
     "name-lgl": "Würzburg Stadt",
     "type": "Stadt",
+    "ags": "09663",
     "lat": 49.784984,
     "long": 9.941828,
     "pop": 127880
   },
   {
+    "id": "wuerzburg",
     "name": "Würzburg",
     "name-lgl": "Würzburg",
     "type": "Landkreis",
+    "ags": "09679",
     "lat": 49.6422750456956,
     "long": 9.97588783152048,
     "pop": 161834
