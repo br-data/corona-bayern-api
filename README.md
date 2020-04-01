@@ -1,30 +1,36 @@
 # Corona in Bayern (Scraper/API)
 
-Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 infiziert haben, ist ein wichtiger Indikator für die Ausbreitung der Krankheit COVID-19. Die ungefähre Zahl der infizierten Menschen lässt sich jedoch nur mit Tests bestimmen. Da es sich um eine meldepflichtige Krankheit meldet, müssen positive Testergebnisse an die örtlichen Gesundheitsämter gemeldet werden, welche die Zahl der infizierten Personen an das jeweilige Landesamt weitermelden. Das Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit, kurz LGL, veröffentlicht jeden Tag die aktuellen Fallzahlen für Bayern.
+Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 infiziert haben, ist ein wichtiger Indikator für die Ausbreitung von COVID-19.
+Krankenhäuser und Ärzte sind dazu verpflichtet Corona-Fälle an die örtlichen Gesundheitsämter zu melden. Aus der Summe dieser Meldungen ergeben sich die offiziellen Fallzahlen. In Bayern werden die aktuellen Fallzahlen durch das Bayerische Landesamt für Gesundheit und Lebensmittelsicherheit veröffentlicht.
 
-Dieses Skript schreibt in regelmäßigen Abständen die aktuellen Zahlen von der Webseite des LGL in eine Datenbank und stellt eine Schnittstelle (API) zum Abfragen der Daten bereit.
+Die hier veröffentlichten Skripte dienen dazu die veröffentlichen Zahlen des LGL täglich in einer Datenbank zu sichern und eine Schnittstelle (API) zum Abfragen der Daten bereitzustellen.
 
 ## Daten
 
-Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des **Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit**: <https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm>
+Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des **Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit** (LGL). Das LGL aktualisiert diese Seite jeden Tag, meistens zwischen 12 und 15 Uhr: <https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm>
 
-Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen. Das LGL aktualisiert diese Zahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
+Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen.
 
 ### Einschränkungen
 
-- Keine Daten vor dem 12.3.2020
-- Unklare Datenlage vor dem 20.3.2020: Teilweise gehen die Fallzahlen in einzelnen Landkreise wieder zurück
-- Tote erst ab 28.3.2020
+Die Daten werden von uns mehrfach täglich in eine Datenbank geschrieben. Dabei sind aber folgende Einschränkungen zu beachten:
+
+- Für die Landkreise sind keine Zahlen vor dem 12.3.2020 verfügbar.
+- Für die Landkreise werden seitens des LGL keine Nachmeldungen (Stichwort: Meldeverzögerung) veröffentlicht. Daher können die historischen Zahlen von den Zahlen des RKIs abweichen.
+- Unklare Datenlage vor dem 20.3.2020: Tagesweise gehen die Fallzahlen in einzelnen Landkreise wieder zurück, was eigentlich nicht sein kann.
+- Die Zahl der Todesfälle ist erst ab 28.3.2020 verfügbar. Momentan erfassen wir jeweils nur die letzte Zählung.
 
 ## API
 
-URL: <https://europe-west3-brdata-corona.cloudfunctions.net/lglApi/>
+Für die Verwendung der Daten in Apps und interaktiven Grafiken (Datawrapper) stellen wir einen API bereit, die das Abfragen der LGL-Daten nach bestimmten Parametern (Zeitpunkt, Landkreis, Dateiformat) ermöglicht.
+
+**URL:** <https://europe-west3-brdata-corona.cloudfunctions.net/lglApi/>
 
 ### Endpunkte
 
 - `/`: alle verfügbaren Daten abrufen
-- `/date`: aktuellste Daten für alle Landkreise abrufen
-- `/date/[date]`: Daten für ein spezifische Datum für alle Landkreise abrufen, z.B. `2020-03-18`
+- `/date`: aktuellste Daten abrufen
+- `/date/[date]`: Daten für ein spezifische Datum abrufen, z.B. `2020-03-18`
 - `/county`: Daten für alle Landkreise abrufen
 - `/county/[id]`: Daten für einen Landkreis abrufen, z.B. `amberg-sulzbach`
 
@@ -63,7 +69,11 @@ Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties
 
 ## Beispiele
 
-1.) Anfrage an den Endpunkt `/date/2020-03-25`. Bei Anfragen für ein bestimmtes Datum wird kein `case`-Objekt mit Fallzahlen für andere Daten zurückgegeben. Die Rückgabe-Objekt für den Endpunkt `/date` sind identisch, nur das hierbei immer die jeweils aktuellsten Daten von heute oder gestern zurückgegeben werden.
+### 1. Anfrage an `/date/[date]`
+
+Bei Anfragen für ein bestimmtes Datum wird kein `case`-Objekt mit Fallzahlen für andere Daten zurückgegeben. Die Rückgabe-Objekt für den Endpunkt `/date` sind identisch, nur das hierbei immer die jeweils aktuellsten Daten von heute oder gestern zurückgegeben werden.
+
+Beispiel für `/date/2020-03-25`:
 
 ```javascript
 [
@@ -87,7 +97,11 @@ Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties
 ]
 ```
 
-2.) Anfrage an den Endpunkt `/county/ansbach-stadt`. Die Rückgabe-Objekte für die Endpunkte `/county` und `/` sind identisch. Hier werden jeweils alle verfügbaren Daten für alle Landkreise zurückgegeben.  
+### 2. Anfrage an `/county/[county]`
+
+Bei Anfragen für einen bestimmten Landkreis, werden alle Fallzahlen für jeden verfügbaren Tag im `case`-Objekt zurückgegeben. Die Rückgabe-Objekte für die Endpunkte `/county` und `/` sind identisch. Hier werden jeweils alle verfügbaren Daten für alle Landkreise zurückgegeben.
+
+Beispiel für `/county/ansbach-stadt`:
 
 ```javascript
 [
@@ -116,7 +130,7 @@ Ein vollständige Liste der IDs findet sich in der Datei `./import/data/counties
 
 ## Verwendung
 
-Diese Anleitung geht davon aus, dass du bereits ein Google Cloud-Konto und ein Rechnungskonto dafür eingericht hast. Außerdem solltest du das Google Cloud-Kommandzeilenwerkzeug [installiert](https://cloud.google.com/sdk/install) und mit deinem Benutzerkonto [verknüpft](https://cloud.google.com/sdk/docs/initializing) haben.
+Diese Anleitung geht davon aus, dass bereits ein Google Cloud-Konto vorhanden und ein Rechnungskonto eingerichtet ist. Außerdem sollte das Google Cloud-Kommandzeilenwerkzeug [installiert](https://cloud.google.com/sdk/install) und mit einem Benutzerkonto [verknüpft](https://cloud.google.com/sdk/docs/initializing) sein.
 
 ### Projekt anlegen
 
@@ -134,7 +148,7 @@ $ gcloud config set project brdata-corona
 
 ### Firebase Datenbank erstellen
 
-Verwende die Google Cloud-Weboberfläche, um eine neue Firebase-Datenbank zu erstellen: https://console.cloud.google.com/firestore/
+Verwende die [Google Cloud-Weboberfläche](https://console.cloud.google.com/firestore/), um eine neue Firebase-Datenbank zu erstellen:
 
 Für die Datenbank sollte dabei der „native Modus“ ausgewählt werden. Als Region, also den Speicheort wählen wir `europe-west3` (Frankfurt) aus. Jede Datenbank kann mehrere Sammlungen (collections) enthalten, in der die einzelnen Daten als sogenannten Dokumente gespeichert werden können. Jetzt musst du nur noch eine neue Sammlung anlegen und benennen, zum Beispiel `bayern-lgl`.
 
