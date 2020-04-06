@@ -41,6 +41,7 @@ async function scrapeData(html) {
     'cases',
     'cases-new',
     'cases-per-100tsd',
+    'cases-per-100tsd-7days',
     'deaths',
     'deaths-new'
   ];
