@@ -38,9 +38,9 @@ async function scrapeBody(url) {
 async function scrapeData(html) {
   const tableHeaders = [
     'name-lgl',
-    'count',
-    'count-new',
-    'count-per-100tsd',
+    'cases',
+    'cases-new',
+    'cases-per-100tsd',
     'deaths',
     'deaths-new'
   ];
@@ -70,9 +70,10 @@ async function updateDatabase(data, date) {
       doc,
       {
         'last-updated': lastUpdated,
-        'last-count': parseInt(d.count.replace('.', '')) || 0,
+        'last-cases': parseInt(d.cases.replace('.', '')) || 0,
         'last-deaths': parseInt(d.deaths.replace('.', '')) || 0,
-        'cases': { [date]: parseInt(d.count.replace('.', '')) || 0 }
+        'cases': { [date]: parseInt(d.cases.replace('.', '')) || 0 },
+        'deaths': { [date]: parseInt(d.deaths.replace('.', '')) || 0 }
       },
       { merge: true }
     );
@@ -157,25 +158,33 @@ function flatConverter(dateString) {
     fromFirestore: function (data) {
       const currentDate = new Date(dateString);
       const currentDateString = dateString;
+
       const previousDate = new Date(currentDateString);
       previousDate.setDate(previousDate.getDate() - 5);
       const previousDateString = toDateString(previousDate);
+
+      const pastDate = new Date(currentDateString);
+      pastDate.setDate(pastDate.getDate() - 5);
+      const pastDateString = toDateString(pastDate);
+
       const doublingTimeDays = doublingTime(
-        previousDate,
-        data.cases[previousDateString],
+        pastDate,
+        data.cases[pastDateString],
         currentDate,
         data.cases[currentDateString]
       );
-      const countPerThousand = (data.cases[currentDateString] * 1000) / data.pop;
+
+      const casesPerThousand = (data.cases[currentDateString] * 1000) / data.pop;
+
       const newData = Object.assign(data, {
         date: currentDateString,
-        count: data.cases[currentDateString],
+        cases: data.cases[currentDateString],
+        'previous-cases': data.cases[previousDateString],
+        'previous-deaths': data.deaths[previousDateString],
         'doubling-time': Math.round(doublingTimeDays * 10) / 10,
-        'count-per-tsd': Math.round(countPerThousand * 10) / 10,
+        'cases-per-tsd': Math.round(casesPerThousand * 10) / 10,
         'last-updated': toTimestampString(data['last-updated'])
       });
-
-      delete newData.cases;
 
       return newData;
     }
