@@ -5,6 +5,7 @@ const { Firestore, FieldPath, Timestamp } = require('@google-cloud/firestore');
 const toDashcase = require('./lib/to-dashcase');
 const tableToJson = require('./lib/table-to-json');
 const jsonToCsv = require('./lib/json-to-csv');
+const doublingTime = require('./lib/doubling-time');
 
 const config = require('./config.json');
 const db = new Firestore(config.firestore);
@@ -13,8 +14,8 @@ const collection = db.collection(config.firestore.collectionId);
 exports.lglScraper = async (req, res) => {
   const html = await scrapeBody(config.url).catch(console.error);
   const data = await scrapeData(html).catch(console.error);
-  const dateString = data.date || new Date().toISOString().split('T')[0];
-
+  const dateString = data.date || toDateString(new Date());
+  
   if (data.result) {
     const update = await updateDatabase(data.result, dateString).catch(console.error);
     
@@ -23,7 +24,7 @@ exports.lglScraper = async (req, res) => {
     }
   } else {
     if (res && res.send) {
-      res.send('Update failed: Could not extract data from external site');
+      res.send('Update failed: Could not extract data from website');
     }
   }
 };
@@ -94,7 +95,7 @@ async function handleDate(req, res) {
   const dateArgument = req.path.split('/')[2];
   const hasDateArgument = Date.parse(dateArgument);
   const dateObject = hasDateArgument ? new Date(dateArgument) : new Date();
-  const dateString = dateObject.toISOString().split('T')[0];
+  const dateString = toDateString(dateObject);
 
   (async function getSpecificDate(dateString) {
     const fieldPath = new FieldPath('cases', dateString);
@@ -107,10 +108,10 @@ async function handleDate(req, res) {
     if (hasDateArgument || result.length) {
       handleResponse(req, res, result);
     } else {
-      const prevDate = new Date(dateString);
-      prevDate.setDate(prevDate.getDate() - 1);
-      const prevDateString = prevDate.toISOString().split('T')[0];
-      getSpecificDate(prevDateString);
+      const previousDate = new Date(dateString);
+      previousDate.setDate(previousDate.getDate() - 1);
+      const previousDateString = toDateString(previousDate);
+      getSpecificDate(previousDateString);
     }
   })(dateString);
 }
@@ -154,17 +155,29 @@ function handleResponse(req, res, result) {
 function flatConverter(dateString) {
   return {
     fromFirestore: function (data) {
-      const countPerThousand = (data.cases[dateString] * 1000) / data.pop;
+      const currentDate = new Date(dateString);
+      const currentDateString = dateString;
+      const previousDate = new Date(currentDateString);
+      previousDate.setDate(previousDate.getDate() - 5);
+      const previousDateString = toDateString(previousDate);
+      const doublingTimeDays = doublingTime(
+        previousDate,
+        data.cases[previousDateString],
+        currentDate,
+        data.cases[currentDateString]
+      );
+      const countPerThousand = (data.cases[currentDateString] * 1000) / data.pop;
       const newData = Object.assign(data, {
-        date: dateString,
-        count: data.cases[dateString],
-        'count-per-tsd': Math.round(countPerThousand * 100) / 100,
-        'last-updated': toDateString(data['last-updated'])
+        date: currentDateString,
+        count: data.cases[currentDateString],
+        'doubling-time': Math.round(doublingTimeDays * 10) / 10,
+        'count-per-tsd': Math.round(countPerThousand * 10) / 10,
+        'last-updated': toTimestampString(data['last-updated'])
       });
 
-      /*eslint no-unused-vars: 0*/
-      const { cases, ...result } = newData;
-      return result;
+      delete newData.cases;
+
+      return newData;
     }
   };
 }
@@ -173,13 +186,17 @@ function dateConverter() {
   return {
     fromFirestore: function (data) {
       return Object.assign(data, {
-        'last-updated': toDateString(data['last-updated'])
+        'last-updated': toTimestampString(data['last-updated'])
       });
     }
   };
 }
 
-function toDateString(obj) {
+function toDateString(date) {
+  return date.toISOString().split('T')[0];
+}
+
+function toTimestampString(obj) {
   const {_seconds, _nanoseconds} = obj;
   const timestamp = new Timestamp(_seconds, _nanoseconds);
   const dateString = timestamp.toDate().toISOString();
