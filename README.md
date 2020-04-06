@@ -49,12 +49,17 @@ Für die Verwendung der Daten in Apps und interaktiven Grafiken (Datawrapper) st
 - `long`: Breitengrat, z.B. 11.5580180
 - `pop`: Einwohnerzahl, z.B. 1471508
 - `date`: Datum für `/date`-Anfragen, z.B."2020-03-24"
-- `count`: Fallzahlen für `/date`-Anfragen, z.B. 35
-- `last-count`: letzte erfasste Fallzahlen, z.B. 43
-- `last-count-per-tsd`: letzte berechnete Fallzahlen pro 1.000 Einwohner, z.B. 0.13
-- `last-deaths`: letzte erfasste Todefälle, z.B. 2
-- `last-updated`: Datum der letzten Aktualisierung, z.B. "2020-03-25T19:09:05.188Z"
+- `cases`: Fallzahlen für `/date`-Anfragen, z.B. 35
 - `cases`: Alle bisher erfassten Fallzahlen pro Datum für Anfragen ohne `/date`-Parameter. Beispiel: { "2020-03-25": 43, "2020-03-24": 35, "2020-03-23": 18, ... }
+- `last-cases`: letzte erfasste Fallzahlen, z.B. 43
+- `previous-cases`: vorletzte erfasste Fallzahlen, z.B. 37
+- `deaths`: Zahl der Todesfälle für `/date`-Anfragen, z.B. 2
+- `deaths`: Alle bisher erfassten Todesfälle pro Datum für Anfragen ohne `/date`-Parameter. Beispiel: { "2020-03-25": 1, "2020-03-24": 1, "2020-03-23": 2, ... }
+- `last-deaths`: letzte erfasste Todefälle, z.B. 2
+- `previous-deaths`: vorletzte erfasste Todefälle, z.B. 1
+- `last-updated`: Datum der letzten Aktualisierung, z.B. "2020-03-25T19:09:05.188Z"
+- `cases-per-tsd`: letzte berechnete Fallzahlen pro 1.000 Einwohner, z.B. 0.1
+- `doubling-time`: letzte berechnete Verdopplungszeit, z.B. 2.7
 
 ### IDs für Landkreise und Städte
 
@@ -88,12 +93,20 @@ Beispiel für `/date/2020-03-25`:
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
+
+    "last-updated": "2020-03-31T18:00:05.119Z",
     "date": "2020-03-25",
-    "count": 6,
-    "last-count": 24,
-    "last-count-per-tsd": 0.14,
-    "last-deaths": 43,
-    "last-updated": "2020-03-31T18:00:05.119Z"
+
+    "cases": 6,
+    "last-cases": 24,
+    "previous-cases": 18,
+
+    "deaths": 0,
+    "last-deaths": 00,
+    "previous-deaths": 0,
+
+    "cases-per-tsd": 0.14,
+    "doubling-time": 2.9
   },
   {
     // ... andere Landkreise
@@ -119,9 +132,12 @@ Beispiel für `/county/ansbach-stadt`:
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
-    "last-count": 24,
-    "last-deaths": 43,
+
     "last-updated": "2020-03-31T18:00:05.119Z",
+
+    "last-cases": 24,
+    "last-deaths": 43,
+
     "cases": {
       "2020-03-31": 24,
       "2020-03-30": 19,
@@ -129,6 +145,16 @@ Beispiel für `/county/ansbach-stadt`:
       "2020-03-28": 18,
       "2020-03-27": 15,
       "2020-03-26": 10
+      // ... mehr Fallzahlen
+    }
+
+    "deaths": {
+      "2020-03-31": 0,
+      "2020-03-30": 0,
+      "2020-03-29": 0,
+      "2020-03-28": 0,
+      "2020-03-27": 0,
+      "2020-03-26": 0
       // ... mehr Fallzahlen
     }
   }
@@ -296,10 +322,6 @@ $ curl -X GET 'localhost:8080?date=2020-03-18'
 
 ## To Do
 
-- Fälle pro 1.000 Einwohner für alle Endpunkte hinzufügen
-- Verdopplungszeit (alle n Tage) hinzufügen
 - Aggregation pro Regierungsbezirk oder für ganz Bayern ermöglichen
 - Festlegen, wie viele Tage `getSpecificDate()` maximal zurückgehen darf
 - Bessere Fehlerbehandlung und Reporting für die API
-- Dynamischer Import oder `require()` von Modulen
-- Scraper und API auf zwei Dateien aufteilen, wenn GCloud das erlaubt
