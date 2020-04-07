@@ -14,10 +14,10 @@ Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“
 
 Die Daten werden zur Zeit mehrfach täglich in einer Datenbank (Google Cloud Firestore) gesichert. Dabei sind jedoch folgende Einschränkungen zu beachten:
 
-- Für die Landkreise sind keine Zahlen vor dem 12.3.2020 verfügbar.
-- Für die Landkreise werden seitens des LGL keine Nachmeldungen (Stichwort: Meldeverzögerung) veröffentlicht. Daher können die historischen Zahlen von den Zahlen des RKIs abweichen.
-- Unklare Datenlage vor dem 20.3.2020: Tagesweise gehen die Fallzahlen in einzelnen Landkreise wieder zurück, was eigentlich nicht sein kann.
-- Die Zahl der Todesfälle ist erst ab 28.3.2020 verfügbar. Momentan erfassen wir jeweils nur die letzte Zählung.
+- Die Fallzahlen für die einzelnen Landkreise sind erst ab dem 12.3.2020 verfügbar.
+- Für die Landkreise werden keine Nachmeldungen durch das LGL (Stichwort: Meldeverzögerung) veröffentlicht. Daher können die historischen Zahlen von den Zahlen des RKIs abweichen.
+- Unklare Datenlage vor dem 20.3.2020, da die Fallzahlen in einzelnen Landkreise tageweise wieder zurück ging.
+- Die Zahl der Todesfälle ist erst seit dem 28.3.2020 verfügbar und wird seit dem 6.4.2020 auch in der Datenbank erfasst.
 
 ## API
 
@@ -93,18 +93,14 @@ Beispiel für `/date/2020-03-25`:
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
-
     "last-updated": "2020-03-31T18:00:05.119Z",
     "date": "2020-03-25",
-
     "cases": 6,
     "last-cases": 24,
     "previous-cases": 18,
-
     "deaths": 0,
     "last-deaths": 00,
     "previous-deaths": 0,
-
     "cases-per-tsd": 0.14,
     "doubling-time": 2.9
   },
@@ -132,12 +128,7 @@ Beispiel für `/county/ansbach-stadt`:
     "lat": 49.2917917440462,
     "long": 10.5691214101633,
     "pop": 41847,
-
     "last-updated": "2020-03-31T18:00:05.119Z",
-
-    "last-cases": 24,
-    "last-deaths": 43,
-
     "cases": {
       "2020-03-31": 24,
       "2020-03-30": 19,
@@ -146,8 +137,8 @@ Beispiel für `/county/ansbach-stadt`:
       "2020-03-27": 15,
       "2020-03-26": 10
       // ... mehr Fallzahlen
-    }
-
+    },
+    "last-cases": 24,
     "deaths": {
       "2020-03-31": 0,
       "2020-03-30": 0,
@@ -156,7 +147,8 @@ Beispiel für `/county/ansbach-stadt`:
       "2020-03-27": 0,
       "2020-03-26": 0
       // ... mehr Fallzahlen
-    }
+    },
+    "last-deaths": 43
   }
 ]
 ```
@@ -322,6 +314,7 @@ $ curl -X GET 'localhost:8080?date=2020-03-18'
 
 ## To Do
 
+- Sanity-Check für Scraper hinzufügen: Richtige Tabelle, richtige Spalte?
 - Aggregation pro Regierungsbezirk oder für ganz Bayern ermöglichen
 - Festlegen, wie viele Tage `getSpecificDate()` maximal zurückgehen darf
 - Bessere Fehlerbehandlung und Reporting für die API
