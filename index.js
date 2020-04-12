@@ -157,29 +157,31 @@ function handleResponse(req, res, result) {
 function flatConverter(dateString) {
   return {
     fromFirestore: function (data) {
-      const currentDate = new Date(dateString);
-      const currentDateString = dateString;
-
-      const previousDate = new Date(currentDateString);
-      previousDate.setDate(previousDate.getDate() - 5);
+      // Previous date = current date - 1
+      const previousDate = new Date(dateString);
+      previousDate.setDate(previousDate.getDate() - 1);
       const previousDateString = toDateString(previousDate);
 
-      const pastDate = new Date(currentDateString);
+      // Past date = previous date - 5
+      const pastDate = new Date(previousDateString);
       pastDate.setDate(pastDate.getDate() - 5);
       const pastDateString = toDateString(pastDate);
 
+      // Calculate the number days it takes for
+      // the number of cases to double
       const doublingTimeDays = doublingTime(
         pastDate,
         data.cases[pastDateString],
-        currentDate,
-        data.cases[currentDateString]
+        previousDate,
+        data.cases[previousDateString]
       );
 
-      const casesPerThousand = (data.cases[currentDateString] * 1000) / data.pop;
+      const casesPerThousand = (data.cases[dateString] * 1000) / data.pop;
 
       const newData = Object.assign(data, {
-        date: currentDateString,
-        cases: data.cases[currentDateString],
+        date: dateString,
+        cases: data.cases[dateString],
+        deaths: data.deaths[dateString],
         'previous-cases': data.cases[previousDateString],
         'previous-deaths': data.deaths[previousDateString],
         'doubling-time': Math.round(doublingTimeDays * 10) / 10,
