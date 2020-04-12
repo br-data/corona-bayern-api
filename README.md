@@ -6,9 +6,7 @@ Die hier veröffentlichten Skripte dienen dazu die veröffentlichen Zahlen des L
 
 ## Daten
 
-Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des **Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit** (LGL). Das LGL aktualisiert diese Seite jeden Tag, meistens zwischen 12 und 15 Uhr: <https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm>
-
-Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen.
+Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des [Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit](https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm) (LGL). Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen. Das LGL aktualisiert die Fallzahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
 
 ### Einschränkungen
 
@@ -312,9 +310,9 @@ API-Anfrage an die aktivierte Funktion stellen (Beispiel):
 $ curl -X GET 'localhost:8080?date=2020-03-18'
 ```
 
-## To Do
+## Verbesserungsvorschläge
 
-- Sanity-Check für Scraper hinzufügen: Richtige Tabelle, richtige Spalte?
+- Datenvalidierung für Scraper hinzufügen: Richtige Tabelle, richtige Spalte?
 - Aggregation pro Regierungsbezirk oder für ganz Bayern ermöglichen
 - Festlegen, wie viele Tage `getSpecificDate()` maximal zurückgehen darf
 - Bessere Fehlerbehandlung und Reporting für die API
