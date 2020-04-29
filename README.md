@@ -153,6 +153,14 @@ Beispiel für `/county/ansbach-stadt`:
 
 ## Verwendung
 
+1. Repository klonen `git clone https://...`
+2. Erforderliche Module installieren `npm install`
+3. Entwicklungsserver starten `npm run watch`
+
+Um die Module installieren und die Entwicklerwerkzeuge nutzen zu können, muss vorher die JavaScript-Runtime [Node.js](https://nodejs.org/en/download/) installiert werden.
+
+## Deployment
+
 Diese Anleitung geht davon aus, dass bereits ein Google Cloud-Konto vorhanden und ein Rechnungskonto eingerichtet ist. Außerdem sollte das Google Cloud-Kommandzeilenwerkzeug [installiert](https://cloud.google.com/sdk/install) und mit einem Benutzerkonto [verknüpft](https://cloud.google.com/sdk/docs/initializing) sein.
 
 ### Projekt anlegen
@@ -253,7 +261,7 @@ $ gcloud pubsub topics create lgl-scraper-start
 Scraper-Funktion deployen und den Pub/Sub-Auslöser *lgl-scraper-start* festlegen
 
 ```console
-$ gcloud functions deploy lglScraper --runtime nodejs10 --trigger-topic lgl-scraper-start
+$ gcloud functions deploy lglScraper --runtime=nodejs10 --trigger-topic=lgl-scraper-start
 ```
 
 Die Abfrage, ob auch eine authentifizierte Ausführung erlaubt werden soll, kann in dem meisten Fällen mit „Nein“ beantwortet werden, da die Funktion vom Google Cloud Scheduler zeitgesteuert ausgelöst werden kann.
@@ -287,12 +295,14 @@ $ gcloud scheduler jobs create pubsub brdata-corona --topic=lgl-scraper-start --
 API-Funktion deployen. In diesem Beispiel wird der nicht authentifizierte Zugriff von außerhalb erlaubt, um den Datenaustausch zwischen API und beispielsweise einer Web-App zu ermöglichen:
 
 ```console
-$ gcloud functions deploy lglApi --runtime nodejs10 --trigger-http --allow-unauthenticated
+$ gcloud functions deploy lglApi --runtime=nodejs10 --trigger-http --allow-unauthenticated
 ```
 
 ### Lokale Entwicklungsumgebung
 
-Das Google Functions Framework global installieren, um Funktion lokal testen zu können;
+Um das Skript `index.js` lokal zu testen, verwendet man am besten das Google Functions Framework. Das Functions Framework kann mit dem Befehl `npm run watch` gestartet werden. Das hat den Vorteil, dass das Skript jedes Mal neu geladen wird, sobald man Änderungen am Code vornimmt.
+
+Man kann das Functions Framework aber auch manuell installieren und ausführen:
 
 ```console
 $ npm i -g @google-cloud/functions-framework
