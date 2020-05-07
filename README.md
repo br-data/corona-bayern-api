@@ -57,6 +57,8 @@ Für die Verwendung der Daten in Apps und interaktiven Grafiken (Datawrapper) st
 - `previous-deaths`: vorletzte erfasste Todefälle, z.B. 1
 - `last-updated`: Datum der letzten Aktualisierung, z.B. "2020-03-25T19:09:05.188Z"
 - `cases-per-tsd`: letzte berechnete Fallzahlen pro 1.000 Einwohner, z.B. 0.1
+- `cases-per-100tsd`: Fallzahlen pro 100.000 Einwohner nach Berechnung des LGL
+- `cases-per-100tsd-7days`: Neuinfektionen pro 100.000 Einwohner der letzten Woche nach Berechnung des LGL
 - `doubling-time`: letzte berechnete Verdopplungszeit, z.B. 2.7
 
 ### IDs für Landkreise und Städte
@@ -100,6 +102,8 @@ Beispiel für `/date/2020-03-25`:
     "last-deaths": 00,
     "previous-deaths": 0,
     "cases-per-tsd": 0.14,
+    "cases-per-100tsd": 140,
+    "cases-per-100tsd-7days": 20,
     "doubling-time": 2.9
   },
   {
@@ -146,6 +150,8 @@ Beispiel für `/county/ansbach-stadt`:
       "2020-03-26": 0
       // ... mehr Fallzahlen
     },
+    "cases-per-100tsd": 140,
+    "cases-per-100tsd-7days": 20,
     "last-deaths": 43
   }
 ]
