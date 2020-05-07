@@ -73,6 +73,8 @@ async function updateDatabase(data, date) {
         'last-updated': lastUpdated,
         'last-cases': parseInt(d.cases.replace('.', '')) || 0,
         'last-deaths': parseInt(d.deaths.replace('.', '')) || 0,
+        'cases-per-100tsd': parseInt(d['cases-per-100tsd'].replace('.', '')) || 0,
+        'cases-per-100tsd-7days': parseInt(d['cases-per-100tsd-7days'].replace('.', '')) || 0,
         'cases': { [date]: parseInt(d.cases.replace('.', '')) || 0 },
         'deaths': { [date]: parseInt(d.deaths.replace('.', '')) || 0 }
       },
