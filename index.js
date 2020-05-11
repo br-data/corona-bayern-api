@@ -148,9 +148,10 @@ async function handleDefault(req, res) {
 }
 
 function handleResponse(req, res, result) {
+  const sortedResult = result.map(sortObject);
   const isCsv = req.query.filetype === 'csv';
   const contentType = isCsv ? 'text/csv' : 'application/json';
-  const response = isCsv ? jsonToCsv(result) : result;
+  const response = isCsv ? jsonToCsv(sortedResult) : sortedResult;
 
   res.set('Content-Type', contentType);
   res.send(response);
@@ -216,4 +217,11 @@ function toTimestampString(obj) {
   const dateString = timestamp.toDate().toISOString();
 
   return dateString;
+}
+
+function sortObject(obj) {
+  return Object.keys(obj).sort().reduce((result, key) => {
+    result[key] = obj[key];
+    return result;
+  }, {});
 }
