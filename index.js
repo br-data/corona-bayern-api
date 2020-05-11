@@ -148,7 +148,7 @@ async function handleDefault(req, res) {
 }
 
 function handleResponse(req, res, result) {
-  const sortedResult = result.map(sortObject);
+  const sortedResult = result.map(sortObject).sort((a, b) => a.id.localeCompare(b.id));
   const isCsv = req.query.filetype === 'csv';
   const contentType = isCsv ? 'text/csv' : 'application/json';
   const response = isCsv ? jsonToCsv(sortedResult) : sortedResult;
