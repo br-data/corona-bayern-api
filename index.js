@@ -15,7 +15,7 @@ exports.lglScraper = async (req, res) => {
   const html = await scrapeBody(config.url).catch(console.error);
   const data = await scrapeData(html).catch(console.error);
   const dateString = data.date || toDateString(new Date());
-  
+
   if (data.result) {
     const update = await updateDatabase(data.result, dateString).catch(console.error);
     
@@ -41,6 +41,7 @@ async function scrapeData(html) {
     'cases',
     'cases-new',
     'cases-per-100tsd',
+    'cases-new-7days',
     'cases-per-100tsd-7days',
     'deaths',
     'deaths-new'
