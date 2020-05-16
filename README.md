@@ -293,7 +293,7 @@ $ gcloud services enable cloudscheduler.googleapis.com
 Wie häufig die Scraper-Funktion ausgeführt werden soll, kann mit dem Parameter `--schedule` festgelegt werden, welche die Crontab-Syntax unterstützt. Dabei hilft zum Beispiel der [crontab.guru](https://crontab.guru/). Außerdem muss die gültige Zeitzone `--time-zone` und der Pub/Sub-Auslöser `--topic` festgelegt werden. In diesem Beispiel wird der Scraper alle zwei Stunden von 8 bis 20 Uhr ausgeführt:
 
 ```console
-$ gcloud scheduler jobs create pubsub brdata-corona --topic=lgl-scraper-start --schedule="0 8-20/2 * * *" --time-zone="Europe/Brussels" --message-body="undefined"
+$ gcloud scheduler jobs create pubsub brdata-corona --topic=lgl-scraper-start --schedule="0 8-20/2 * * *" --time-zone="Europe/Berlin" --message-body="undefined"
 ```
 
 ### API deployen
