@@ -48,11 +48,11 @@ async function scrapeData(html) {
   ];
 
   const $ = cheerio.load(html);
-  const tableHtml = $('table').eq(2).parent().html();
+  const tableHtml = $('table').eq(3).parent().html();
   const tableJson = tableToJson(tableHtml, tableHeaders);
   const cleanJson = tableJson.filter(d => d['name-lgl'] !== 'Gesamtergebnis');
 
-  const dateText = $('table').eq(2).find('caption').text();
+  const dateText = $('table').eq(3).find('caption').text();
   const dateMatch = dateText.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
   const dateString = dateMatch ? `${dateMatch[3]}-${dateMatch[2]}-${dateMatch[1]}` : undefined;
 
