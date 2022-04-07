@@ -4,6 +4,8 @@ Die Zahl der Menschen, welche sich mit dem neuartigen Coronavirus SARS-CoV-2 inf
 
 Die hier veröffentlichten Skripte dienen dazu die veröffentlichen Zahlen des LGL täglich in einer Datenbank zu sichern und eine Schnittstelle (API) zum Abfragen der Daten bereitzustellen.
 
+⚠️ Diese API ist veraltet und wird bald abgeschaltet. Alle Corona-Daten werden zukünftig über eine zentrale [Corona-API](https://github.com/br-data/corona-api) bereitgestellt.
+
 ## Daten
 
 Eine Übersicht der aktuellen Statistiken zu Coronavirusinfektionen in Bayern findet sich auf der Webseite des [Bayerisches Landesamt für Gesundheit und Lebensmittelsicherheit](https://www.lgl.bayern.de/gesundheit/infektionsschutz/infektionskrankheiten_a_z/coronavirus/karte_coronavirus/index.htm) (LGL). Die absoluten Fallzahlen werden aus der „Tabelle 03: Coronavirusinfektionen“ bezogen. Das LGL aktualisiert die Fallzahlen jeden Tag, meistens zwischen 12 und 15 Uhr.
